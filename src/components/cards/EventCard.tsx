@@ -80,7 +80,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
           {event.locationName || "Sports Venue"}
         </span>
         <Link
-          href={`/events#${event.uuid}`}
+          href="#events"
           className="inline-flex items-center gap-1.5 font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors shrink-0"
         >
           <span>View Event</span>

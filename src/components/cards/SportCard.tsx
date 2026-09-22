@@ -14,7 +14,7 @@ export const SportCard: React.FC<SportCardProps> = ({ sport }) => {
 
   return (
     <Link
-      href={`/sports#${sport.uuid}`}
+      href="#sports"
       className="group relative flex flex-col justify-between rounded-2xl bg-white dark:bg-zinc-900/50 hover:bg-slate-50/80 dark:hover:bg-zinc-900/90 border border-slate-200/90 dark:border-zinc-800/80 hover:border-emerald-500/50 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:shadow-emerald-500/5 cursor-pointer shadow-sm dark:shadow-none overflow-hidden"
     >
       <div>

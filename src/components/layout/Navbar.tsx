@@ -18,11 +18,9 @@ import { useTheme } from "@/components/theme/ThemeProvider";
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "Sports", href: "/sports" },
-  { name: "Events", href: "/events" },
-  { name: "Categories", href: "/categories" },
-  { name: "Favorites", href: "/favorites" },
-  { name: "About", href: "/about" },
+  { name: "Sports", href: "#sports" },
+  { name: "Events", href: "#events" },
+  { name: "Categories", href: "#categories" },
 ];
 
 export const Navbar: React.FC = () => {
