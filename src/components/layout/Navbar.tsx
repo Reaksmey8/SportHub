@@ -21,6 +21,8 @@ const navItems = [
   { name: "Sports", href: "#sports" },
   { name: "Events", href: "#events" },
   { name: "Categories", href: "#categories" },
+  { name: "Favorites", href: "#favorites" },
+  { name: "About", href: "#about" },
 ];
 
 export const Navbar: React.FC = () => {
