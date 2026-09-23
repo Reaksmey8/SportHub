@@ -477,14 +477,25 @@ export default function AboutPage() {
           </div>
 
           {/* MEET OUR TEAM SECTION CONTAINER */}
-          <div className="p-8 sm:p-12 rounded-[32px] bg-white dark:bg-zinc-950/70 border border-slate-200/90 dark:border-zinc-800 shadow-sm max-w-6xl mx-auto space-y-8">
+          <div className="p-8 sm:p-12 rounded-[32px] bg-white dark:bg-zinc-950/70 border border-slate-200/90 dark:border-zinc-800 shadow-sm max-w-5xl mx-auto space-y-8">
             <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider text-[#9e1111] dark:text-red-500 text-center">
               MEET OUR TEAM
             </h2>
-            <div className="flex flex-wrap justify-center gap-5 sm:gap-7">
-              {TEAM_MEMBERS_DATA.map((member) => (
-                <ProfileCard key={member.name} member={member} />
-              ))}
+
+            <div className="space-y-6 sm:space-y-8">
+              {/* Top Row: 3 Members */}
+              <div className="flex flex-wrap justify-center gap-5 sm:gap-8">
+                {TEAM_MEMBERS_DATA.slice(0, 3).map((member) => (
+                  <ProfileCard key={member.name} member={member} />
+                ))}
+              </div>
+
+              {/* Bottom Row: 2 Members Centered */}
+              <div className="flex flex-wrap justify-center gap-5 sm:gap-8">
+                {TEAM_MEMBERS_DATA.slice(3, 5).map((member) => (
+                  <ProfileCard key={member.name} member={member} />
+                ))}
+              </div>
             </div>
           </div>
         </section>

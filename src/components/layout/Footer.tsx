@@ -191,13 +191,11 @@ export const Footer: React.FC = () => {
 
             {/* School / Organization Logo */}
             <div className="mt-5">
-              <div className="inline-block px-3 py-2 rounded-xl bg-white border border-slate-200 dark:border-zinc-700 shadow-sm">
-                <Image
-                  src={schoolLogo}
-                  alt="ISTAD School Logo"
-                  width={160}
-                  height={58}
-                  className="h-7 w-auto object-contain"
+              <div>
+               <img
+                  src={schoolLogo.src}
+                  alt="School Logo"
+                  className="w-52 h-auto object-contain"
                 />
               </div>
             </div>
