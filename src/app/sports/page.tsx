@@ -1,5 +1,5 @@
 import React from "react";
-import { sportsApi } from "@/services/api/sports";
+import { getAllSports } from "@/server/sports";
 import { SportCard } from "@/components/cards/SportCard";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ErrorState } from "@/components/ui/ErrorState";
@@ -18,7 +18,7 @@ export default async function SportsPage({ searchParams }: SportsPageProps) {
   let error: string | null = null;
 
   try {
-    const data = await sportsApi.getSports();
+    const data = await getAllSports();
     const allSports = Array.isArray(data) ? data : [];
     sports = searchQuery
       ? allSports.filter(
