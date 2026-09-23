@@ -41,7 +41,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           {/* Contrast gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10 dark:from-zinc-950/90 dark:via-black/30" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-black/10 dark:from-zinc-950/90 dark:via-black/30" />
 
           {/* Badges on Banner */}
           <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
