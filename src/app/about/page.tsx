@@ -23,6 +23,7 @@ import {
   Sparkles,
   MapPin,
   CheckCircle2,
+  Globe,
 } from "lucide-react";
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -122,58 +123,53 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
   },
 ];
 
-// Reusable Profile Card Component matching Picture 2 design
+// Reusable Profile Card Component matching uploaded design (HUD corner brackets, gradient ring, circular buttons)
 const ProfileCard: React.FC<{ member: ProfileMember }> = ({ member }) => {
   return (
-    <div className="relative w-full max-w-[210px] sm:max-w-[225px] bg-[#f4f5f7] dark:bg-zinc-900 rounded-3xl border border-slate-200/90 dark:border-zinc-800 shadow-sm px-4 pt-6 pb-5 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-500/40 group">
-      {/* Decorative Emerald Wireframe Frame with terminal dots matching website brand */}
-      <div className="absolute inset-2.5 sm:inset-3 rounded-2xl sm:rounded-3xl border-2 border-t-0 border-emerald-600 dark:border-emerald-500/90 pointer-events-none transition-colors group-hover:border-emerald-500">
-        {/* Top Left Line & Terminal Dot */}
-        <div className="absolute -top-[2px] -left-[2px] w-[26%] sm:w-[28%] h-5 sm:h-6 border-t-2 border-l-2 border-emerald-600 dark:border-emerald-500/90 rounded-tl-2xl sm:rounded-tl-3xl group-hover:border-emerald-500">
-          <span className="absolute -top-[5px] -right-1 w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 shadow-sm" />
-        </div>
+    <div className="relative w-full max-w-[215px] sm:max-w-[230px] bg-slate-950 dark:bg-[#0c1017] rounded-[30px] border border-slate-800/80 dark:border-zinc-800/80 shadow-2xl px-5 pt-8 pb-7 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/15 hover:border-emerald-500/50 group">
+      {/* 4 Corner L-Brackets matching screenshot */}
+      <span className="absolute top-3.5 left-3.5 w-4 h-4 border-t-2 border-l-2 border-emerald-500 rounded-tl-[6px] pointer-events-none group-hover:scale-110 transition-transform duration-300" />
+      <span className="absolute top-3.5 right-3.5 w-4 h-4 border-t-2 border-r-2 border-emerald-500 rounded-tr-[6px] pointer-events-none group-hover:scale-110 transition-transform duration-300" />
+      <span className="absolute bottom-3.5 left-3.5 w-4 h-4 border-b-2 border-l-2 border-emerald-500 rounded-bl-[6px] pointer-events-none group-hover:scale-110 transition-transform duration-300" />
+      <span className="absolute bottom-3.5 right-3.5 w-4 h-4 border-b-2 border-r-2 border-emerald-500 rounded-br-[6px] pointer-events-none group-hover:scale-110 transition-transform duration-300" />
 
-        {/* Top Right Line & Terminal Dot */}
-        <div className="absolute -top-[2px] -right-[2px] w-[26%] sm:w-[28%] h-5 sm:h-6 border-t-2 border-r-2 border-emerald-600 dark:border-emerald-500/90 rounded-tr-2xl sm:rounded-tr-3xl group-hover:border-emerald-500">
-          <span className="absolute -top-[5px] -left-1 w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 shadow-sm" />
+      {/* Avatar with Gradient Glowing Ring matching screenshot */}
+      <div className="relative p-[3px] rounded-full bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-400 shadow-lg shadow-emerald-500/25 mb-4 group-hover:scale-105 group-hover:shadow-emerald-500/40 transition-all duration-300">
+        <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden bg-slate-900">
+          <Image
+            src={member.avatarUrl}
+            alt={member.name}
+            fill
+            unoptimized
+            sizes="112px"
+            className="object-cover"
+          />
         </div>
-      </div>
-
-      {/* Circular Avatar */}
-      <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-white dark:border-zinc-800 shadow-md mb-3 bg-slate-200 dark:bg-zinc-800 shrink-0 group-hover:border-emerald-500/50 transition-colors">
-        <Image
-          src={member.avatarUrl}
-          alt={member.name}
-          fill
-          unoptimized
-          sizes="112px"
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-        />
       </div>
 
       {/* Member Name */}
-      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 tracking-tight leading-snug transition-colors">
+      <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-emerald-400 tracking-tight leading-snug transition-colors">
         {member.name}
       </h3>
 
-      {/* Role Badge */}
-      <div className="mt-2">
-        <span className="inline-block px-4 py-0.5 rounded-full text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-sm shadow-emerald-500/20 tracking-wide transition-colors">
+      {/* Role Pill Badge */}
+      <div className="mt-2.5">
+        <span className="inline-block px-5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/25">
           {member.role}
         </span>
       </div>
 
-      {/* Social Links Row */}
-      <div className="mt-3.5 flex items-center justify-center gap-3 text-emerald-600 dark:text-emerald-400">
+      {/* 3 Circular Dark Action Buttons matching screenshot */}
+      <div className="mt-5 flex items-center justify-center gap-3">
         {/* Telegram */}
         <a
           href={member.telegramUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-1 rounded hover:text-emerald-500 dark:hover:text-emerald-300 transition-transform hover:scale-110 active:scale-95"
+          className="w-9 h-9 rounded-full bg-white/10 dark:bg-zinc-800/80 hover:bg-emerald-500 hover:text-slate-950 text-zinc-300 border border-white/10 hover:border-emerald-400 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 shadow-sm"
           aria-label={`${member.name} on Telegram`}
         >
-          <TelegramIcon className="w-3.5 h-3.5" />
+          <TelegramIcon className="w-4 h-4" />
         </a>
 
         {/* GitHub */}
@@ -181,19 +177,19 @@ const ProfileCard: React.FC<{ member: ProfileMember }> = ({ member }) => {
           href={member.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-1 rounded hover:text-emerald-500 dark:hover:text-emerald-300 transition-transform hover:scale-110 active:scale-95"
+          className="w-9 h-9 rounded-full bg-white/10 dark:bg-zinc-800/80 hover:bg-emerald-500 hover:text-slate-950 text-zinc-300 border border-white/10 hover:border-emerald-400 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 shadow-sm"
           aria-label={`${member.name} on GitHub`}
         >
-          <GithubIcon className="w-3.5 h-3.5" />
+          <GithubIcon className="w-4 h-4" />
         </a>
 
-        {/* Email */}
+        {/* Portfolio / Globe / Contact */}
         <a
           href={member.emailUrl}
-          className="p-1 rounded hover:text-emerald-500 dark:hover:text-emerald-300 transition-transform hover:scale-110 active:scale-95"
-          aria-label={`Email ${member.name}`}
+          className="w-9 h-9 rounded-full bg-white/10 dark:bg-zinc-800/80 hover:bg-emerald-500 hover:text-slate-950 text-zinc-300 border border-white/10 hover:border-emerald-400 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 shadow-sm"
+          aria-label={`Contact ${member.name}`}
         >
-          <MailIcon className="w-3.5 h-3.5" />
+          <Globe className="w-4 h-4" />
         </a>
       </div>
     </div>
