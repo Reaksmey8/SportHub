@@ -22,6 +22,9 @@ interface FavoritesContextType {
   isEventFavorited: (uuid: string) => boolean;
   toggleSportFavorite: (uuid: string) => Promise<boolean>;
   toggleEventFavorite: (uuid: string) => Promise<boolean>;
+  removeSportFavorite: (uuid: string) => Promise<void>;
+  removeEventFavorite: (uuid: string) => Promise<void>;
+  clearAllFavorites: () => Promise<void>;
   totalFavoritesCount: number;
   loading: boolean;
   refetchFavorites: () => Promise<void>;
@@ -32,6 +35,9 @@ const defaultContext: FavoritesContextType = {
   isEventFavorited: () => false,
   toggleSportFavorite: async () => false,
   toggleEventFavorite: async () => false,
+  removeSportFavorite: async () => {},
+  removeEventFavorite: async () => {},
+  clearAllFavorites: async () => {},
   totalFavoritesCount: 0,
   loading: false,
   refetchFavorites: async () => {},
@@ -228,6 +234,59 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
     [eventUuids, sportUuids]
   );
 
+  const removeSportFavorite = useCallback(
+    async (uuid: string) => {
+      if (!uuid) return;
+      if (sportUuids.has(uuid)) {
+        await toggleSportFavorite(uuid);
+      }
+    },
+    [sportUuids, toggleSportFavorite]
+  );
+
+  const removeEventFavorite = useCallback(
+    async (uuid: string) => {
+      if (!uuid) return;
+      if (eventUuids.has(uuid)) {
+        await toggleEventFavorite(uuid);
+      }
+    },
+    [eventUuids, toggleEventFavorite]
+  );
+
+  const clearAllFavorites = useCallback(async () => {
+    const currentSports = Array.from(sportUuids);
+    const currentEvents = Array.from(eventUuids);
+
+    // Optimistically clear immediately
+    setSportUuids(new Set());
+    setEventUuids(new Set());
+    saveToStorage(new Set(), new Set());
+
+    try {
+      await Promise.all([
+        ...currentSports.map((uuid) =>
+          fetch("/api/favorites", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ sportUuid: uuid }),
+          })
+        ),
+        ...currentEvents.map((uuid) =>
+          fetch("/api/favorites", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ eventUuid: uuid }),
+          })
+        ),
+      ]);
+    } catch (err) {
+      console.error("Error clearing all favorites:", err);
+      // Re-fetch to get consistent state
+      fetchFavorites();
+    }
+  }, [sportUuids, eventUuids, fetchFavorites]);
+
   const totalFavoritesCount = useMemo(
     () => sportUuids.size + eventUuids.size,
     [sportUuids.size, eventUuids.size]
@@ -240,6 +299,9 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
         isEventFavorited,
         toggleSportFavorite,
         toggleEventFavorite,
+        removeSportFavorite,
+        removeEventFavorite,
+        clearAllFavorites,
         totalFavoritesCount,
         loading,
         refetchFavorites: fetchFavorites,
