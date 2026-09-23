@@ -24,19 +24,16 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 mb-12">
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-md shadow-emerald-500/20 border border-emerald-500/30 group-hover:scale-105 transition-transform bg-zinc-950 shrink-0">
+            <Link href="/" className="inline-block group" aria-label="Go to Home">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden group-hover:scale-105 transition-transform duration-300 shrink-0">
                 <Image
                   src={logoImg}
-                  alt="SportsHub SH Logo"
+                  alt="SH Logo"
                   fill
-                  sizes="36px"
+                  sizes="(max-width: 640px) 56px, 64px"
                   className="object-cover"
                 />
               </div>
-              <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans transition-colors">
-                Sports<span className="text-emerald-500 dark:text-emerald-400">Hub</span>
-              </span>
             </Link>
             <p className="text-sm text-slate-600 dark:text-zinc-400 leading-relaxed max-w-sm">
               Your modern destination for live sports coverage, athletic events, and sporting categories across Cambodia and beyond.
@@ -59,11 +56,6 @@ export const Footer: React.FC = () => {
               Platform
             </h4>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-                  Home
-                </Link>
-              </li>
               <li>
                 <Link href="/sports" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                   Sports

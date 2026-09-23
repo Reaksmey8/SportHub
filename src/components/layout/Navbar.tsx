@@ -19,7 +19,6 @@ import { useTheme } from "@/components/theme/ThemeProvider";
 import { useFavorites } from "@/context/FavoritesContext";
 
 const navItems = [
-  { name: "Home", href: "/" },
   { name: "Sports", href: "/sports" },
   { name: "Events", href: "/events" },
   { name: "Categories", href: "/categories" },
@@ -45,24 +44,16 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-lg shadow-emerald-500/20 border border-emerald-500/30 group-hover:scale-105 transition-transform duration-300 bg-zinc-950 shrink-0">
+          <Link href="/" className="flex items-center group py-1" aria-label="Go to Home">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden group-hover:scale-105 transition-transform duration-300 shrink-0">
               <Image
                 src={logoImg}
-                alt="SportsHub SH Logo"
+                alt="SH Logo"
                 fill
                 priority
-                sizes="(max-width: 640px) 40px, 44px"
+                sizes="(max-width: 640px) 48px, 56px"
                 className="object-cover"
               />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans transition-colors">
-                Sports<span className="text-emerald-500 dark:text-emerald-400">Hub</span>
-              </span>
-              <span className="text-[10px] tracking-widest text-slate-500 dark:text-zinc-400 uppercase -mt-1 font-mono transition-colors">
-                Live API Platform
-              </span>
             </div>
           </Link>
 
