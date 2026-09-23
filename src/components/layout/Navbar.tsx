@@ -45,14 +45,14 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center group py-1" aria-label="Go to Home">
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden group-hover:scale-105 transition-transform duration-300 shrink-0">
+            <div className="relative h-11 w-16 sm:h-13 sm:w-20 group-hover:scale-105 transition-transform duration-300 shrink-0">
               <Image
                 src={logoImg}
                 alt="SH Logo"
                 fill
                 priority
-                sizes="(max-width: 640px) 48px, 56px"
-                className="object-cover"
+                sizes="(max-width: 640px) 64px, 80px"
+                className="object-contain"
               />
             </div>
           </Link>

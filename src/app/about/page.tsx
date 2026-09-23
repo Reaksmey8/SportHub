@@ -6,14 +6,14 @@ import { ArrowLeft } from "lucide-react";
 export default function AboutPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 text-center">
-      <div className="relative w-20 h-20 rounded-2xl overflow-hidden shadow-xl shadow-emerald-500/20 border border-emerald-500/30 mx-auto mb-6 bg-zinc-950">
+      <div className="relative h-20 w-32 mx-auto mb-6">
         <Image
           src={logoImg}
           alt="SportsHub SH Logo"
           fill
           priority
-          sizes="80px"
-          className="object-cover"
+          sizes="128px"
+          className="object-contain"
         />
       </div>
       <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 transition-colors">

@@ -24,16 +24,19 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 mb-12">
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="inline-block group" aria-label="Go to Home">
-              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden group-hover:scale-105 transition-transform duration-300 shrink-0">
+            <Link href="/" className="inline-flex items-center gap-3 group" aria-label="Go to Home">
+              <div className="relative h-14 w-20 sm:h-16 sm:w-24 group-hover:scale-105 transition-transform duration-300 shrink-0">
                 <Image
                   src={logoImg}
                   alt="SH Logo"
                   fill
-                  sizes="(max-width: 640px) 56px, 64px"
-                  className="object-cover"
+                  sizes="(max-width: 640px) 80px, 96px"
+                  className="object-contain"
                 />
               </div>
+              <span className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans transition-colors">
+                Sports<span className="text-emerald-500 dark:text-emerald-400">Hub</span>
+              </span>
             </Link>
             <p className="text-sm text-slate-600 dark:text-zinc-400 leading-relaxed max-w-sm">
               Your modern destination for live sports coverage, athletic events, and sporting categories across Cambodia and beyond.
