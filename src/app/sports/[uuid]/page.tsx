@@ -41,8 +41,10 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
       description={sport.description}
       imageUrl={sport.imageUrls?.[0]}
       badge={sport.category?.name || "Sport"}
-      backHref="/#sports"
+      backHref="/sports"
       backLabel="Back to sports"
+      favoriteType="sport"
+      favoriteUuid={sport.uuid}
       metadata={[{ label: "Category", value: sport.category?.name || "General" }]}
     />
   );

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/theme/ThemeProvider";
+import { useFavorites } from "@/context/FavoritesContext";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -32,6 +33,7 @@ export const Navbar: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const { totalFavoritesCount } = useFavorites();
 
   useEffect(() => {
     setMounted(true);
@@ -65,13 +67,18 @@ export const Navbar: React.FC = () => {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-150",
+                    "px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-150 inline-flex items-center gap-1.5",
                     isActive
                       ? "text-emerald-600 bg-emerald-500/10 dark:text-emerald-400 dark:bg-white/5 font-semibold"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5"
                   )}
                 >
-                  {item.name}
+                  <span>{item.name}</span>
+                  {item.name === "Favorites" && mounted && totalFavoritesCount > 0 && (
+                    <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white font-mono leading-none shadow-sm">
+                      {totalFavoritesCount}
+                    </span>
+                  )}
                 </Link>
               );
             })}
@@ -166,7 +173,14 @@ export const Navbar: React.FC = () => {
                       : "text-slate-700 hover:text-slate-900 hover:bg-slate-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-900"
                   )}
                 >
-                  <span>{item.name}</span>
+                  <div className="flex items-center gap-2">
+                    <span>{item.name}</span>
+                    {item.name === "Favorites" && mounted && totalFavoritesCount > 0 && (
+                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white font-mono leading-none shadow-sm">
+                        {totalFavoritesCount}
+                      </span>
+                    )}
+                  </div>
                   <ChevronRight className="w-4 h-4 text-slate-400 dark:text-zinc-500" />
                 </Link>
               );
