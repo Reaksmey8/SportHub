@@ -61,7 +61,7 @@ export interface ProfileMember {
 
 // 1 MENTOR (You can replace avatarUrl with your custom photo file e.g. "/images/mentor.png")
 const MENTOR_DATA: ProfileMember = {
-  name: "Eung Lyzhia",
+  name: "Srorng Sokcheat",
   role: "Mentor",
   // REPLACE PHOTO HERE: Replace with your own image path
   avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
@@ -73,7 +73,7 @@ const MENTOR_DATA: ProfileMember = {
 // 5 MEMBERS (You can replace avatarUrl with your custom photo files)
 const TEAM_MEMBERS_DATA: ProfileMember[] = [
   {
-    name: "Ratana Oudom",
+    name: "Chhom ChanReaksmey",
     role: "Frontend",
     // REPLACE PHOTO HERE: Replace with your own image path
     avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
@@ -82,7 +82,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
     emailUrl: "mailto:ratana@example.com",
   },
   {
-    name: "Heng Soleakna",
+    name: "Bean SovannRanuth",
     role: "Frontend",
     // REPLACE PHOTO HERE: Replace with your own image path
     avatarUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
@@ -91,7 +91,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
     emailUrl: "mailto:soleakna@example.com",
   },
   {
-    name: "San Sengthanu",
+    name: "Pouch Mary",
     role: "Frontend",
     // REPLACE PHOTO HERE: Replace with your own image path
     avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
@@ -122,22 +122,22 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
 // Reusable Profile Card Component matching Picture 2 design
 const ProfileCard: React.FC<{ member: ProfileMember }> = ({ member }) => {
   return (
-    <div className="relative w-full max-w-[210px] sm:max-w-[225px] bg-[#f4f5f7] dark:bg-zinc-900 rounded-3xl border border-slate-200/90 dark:border-zinc-800 shadow-sm px-4 pt-6 pb-5 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl group">
-      {/* Decorative Red Wireframe Frame with terminal dots matching Picture 2 */}
-      <div className="absolute inset-2.5 sm:inset-3 rounded-2xl sm:rounded-3xl border-2 border-t-0 border-[#9e1111] dark:border-red-600/90 pointer-events-none transition-colors">
+    <div className="relative w-full max-w-[210px] sm:max-w-[225px] bg-[#f4f5f7] dark:bg-zinc-900 rounded-3xl border border-slate-200/90 dark:border-zinc-800 shadow-sm px-4 pt-6 pb-5 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-500/40 group">
+      {/* Decorative Emerald Wireframe Frame with terminal dots matching website brand */}
+      <div className="absolute inset-2.5 sm:inset-3 rounded-2xl sm:rounded-3xl border-2 border-t-0 border-emerald-600 dark:border-emerald-500/90 pointer-events-none transition-colors group-hover:border-emerald-500">
         {/* Top Left Line & Terminal Dot */}
-        <div className="absolute -top-[2px] -left-[2px] w-[26%] sm:w-[28%] h-5 sm:h-6 border-t-2 border-l-2 border-[#9e1111] dark:border-red-600/90 rounded-tl-2xl sm:rounded-tl-3xl">
-          <span className="absolute -top-[5px] -right-1 w-2 h-2 rounded-full bg-[#9e1111] dark:bg-red-500 shadow-sm" />
+        <div className="absolute -top-[2px] -left-[2px] w-[26%] sm:w-[28%] h-5 sm:h-6 border-t-2 border-l-2 border-emerald-600 dark:border-emerald-500/90 rounded-tl-2xl sm:rounded-tl-3xl group-hover:border-emerald-500">
+          <span className="absolute -top-[5px] -right-1 w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 shadow-sm" />
         </div>
 
         {/* Top Right Line & Terminal Dot */}
-        <div className="absolute -top-[2px] -right-[2px] w-[26%] sm:w-[28%] h-5 sm:h-6 border-t-2 border-r-2 border-[#9e1111] dark:border-red-600/90 rounded-tr-2xl sm:rounded-tr-3xl">
-          <span className="absolute -top-[5px] -left-1 w-2 h-2 rounded-full bg-[#9e1111] dark:bg-red-500 shadow-sm" />
+        <div className="absolute -top-[2px] -right-[2px] w-[26%] sm:w-[28%] h-5 sm:h-6 border-t-2 border-r-2 border-emerald-600 dark:border-emerald-500/90 rounded-tr-2xl sm:rounded-tr-3xl group-hover:border-emerald-500">
+          <span className="absolute -top-[5px] -left-1 w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 shadow-sm" />
         </div>
       </div>
 
       {/* Circular Avatar */}
-      <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-white dark:border-zinc-800 shadow-md mb-3 bg-slate-200 dark:bg-zinc-800 shrink-0">
+      <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-white dark:border-zinc-800 shadow-md mb-3 bg-slate-200 dark:bg-zinc-800 shrink-0 group-hover:border-emerald-500/50 transition-colors">
         <Image
           src={member.avatarUrl}
           alt={member.name}
@@ -149,25 +149,25 @@ const ProfileCard: React.FC<{ member: ProfileMember }> = ({ member }) => {
       </div>
 
       {/* Member Name */}
-      <h3 className="text-sm sm:text-base font-bold text-[#9e1111] dark:text-red-400 tracking-tight leading-snug">
+      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 tracking-tight leading-snug transition-colors">
         {member.name}
       </h3>
 
       {/* Role Badge */}
       <div className="mt-2">
-        <span className="inline-block px-4 py-0.5 rounded-full text-xs font-semibold bg-[#9e1111] dark:bg-red-600 text-white shadow-sm tracking-wide">
+        <span className="inline-block px-4 py-0.5 rounded-full text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-sm shadow-emerald-500/20 tracking-wide transition-colors">
           {member.role}
         </span>
       </div>
 
       {/* Social Links Row */}
-      <div className="mt-3.5 flex items-center justify-center gap-3 text-[#9e1111] dark:text-red-400">
+      <div className="mt-3.5 flex items-center justify-center gap-3 text-emerald-600 dark:text-emerald-400">
         {/* Telegram */}
         <a
           href={member.telegramUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-1 rounded hover:text-red-500 dark:hover:text-red-300 transition-transform hover:scale-110 active:scale-95"
+          className="p-1 rounded hover:text-emerald-500 dark:hover:text-emerald-300 transition-transform hover:scale-110 active:scale-95"
           aria-label={`${member.name} on Telegram`}
         >
           <TelegramIcon className="w-3.5 h-3.5" />
@@ -178,7 +178,7 @@ const ProfileCard: React.FC<{ member: ProfileMember }> = ({ member }) => {
           href={member.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-1 rounded hover:text-red-500 dark:hover:text-red-300 transition-transform hover:scale-110 active:scale-95"
+          className="p-1 rounded hover:text-emerald-500 dark:hover:text-emerald-300 transition-transform hover:scale-110 active:scale-95"
           aria-label={`${member.name} on GitHub`}
         >
           <GithubIcon className="w-3.5 h-3.5" />
@@ -187,7 +187,7 @@ const ProfileCard: React.FC<{ member: ProfileMember }> = ({ member }) => {
         {/* Email */}
         <a
           href={member.emailUrl}
-          className="p-1 rounded hover:text-red-500 dark:hover:text-red-300 transition-transform hover:scale-110 active:scale-95"
+          className="p-1 rounded hover:text-emerald-500 dark:hover:text-emerald-300 transition-transform hover:scale-110 active:scale-95"
           aria-label={`Email ${member.name}`}
         >
           <MailIcon className="w-3.5 h-3.5" />
@@ -467,8 +467,8 @@ export default function AboutPage() {
         {/* 5. TEAM ROSTER SECTION MATCHING PICTURE 2 */}
         <section id="team" className="space-y-12">
           {/* MENTOR SECTION CONTAINER */}
-          <div className="p-8 sm:p-12 rounded-[32px] bg-white dark:bg-zinc-950/70 border border-slate-200/90 dark:border-zinc-800 shadow-sm max-w-3xl mx-auto space-y-8">
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider text-[#9e1111] dark:text-red-500 text-center">
+          <div className="p-8 sm:p-12 rounded-[32px] bg-white dark:bg-zinc-950/70 border border-slate-200/90 dark:border-zinc-800 shadow-sm hover:border-emerald-500/40 transition-colors max-w-3xl mx-auto space-y-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 text-center">
               OUR MENTOR
             </h2>
             <div className="flex justify-center">
@@ -477,8 +477,8 @@ export default function AboutPage() {
           </div>
 
           {/* MEET OUR TEAM SECTION CONTAINER */}
-          <div className="p-8 sm:p-12 rounded-[32px] bg-white dark:bg-zinc-950/70 border border-slate-200/90 dark:border-zinc-800 shadow-sm max-w-5xl mx-auto space-y-8">
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider text-[#9e1111] dark:text-red-500 text-center">
+          <div className="p-8 sm:p-12 rounded-[32px] bg-white dark:bg-zinc-950/70 border border-slate-200/90 dark:border-zinc-800 shadow-sm hover:border-emerald-500/40 transition-colors max-w-5xl mx-auto space-y-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 text-center">
               MEET OUR TEAM
             </h2>
 
