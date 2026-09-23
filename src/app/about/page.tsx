@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 
-
 import {
   Trophy,
   Zap,
@@ -23,7 +22,12 @@ import {
 } from "lucide-react";
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+  <svg
+    className={className}
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
     <path
       fillRule="evenodd"
       d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
@@ -33,13 +37,27 @@ const GithubIcon: React.FC<{ className?: string }> = ({ className }) => (
 );
 
 const TelegramIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+  <svg
+    className={className}
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
     <path d="M21.93 3.14a1.72 1.72 0 0 0-1.74-.29L2.57 10.37a1.73 1.73 0 0 0 .11 3.24l4.94 1.72 1.83 5.56a1.72 1.72 0 0 0 2.77.72l3.16-2.73 4.88 3.59a1.72 1.72 0 0 0 2.72-.94l3.52-16.73a1.72 1.72 0 0 0-4.57-1.66zm-3.41 3.82L8.91 13.5l-.83 2.52-.73-2.21 11.17-6.85z" />
   </svg>
 );
 
 const MailIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
     <rect width="20" height="16" x="2" y="4" rx="2" />
     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
   </svg>
@@ -82,14 +100,14 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
     name: "Bean SovannRanuth",
     role: "Frontend",
     avatarUrl: "/images/nuth.png",
-    telegramUrl: "https://t.me",
-    githubUrl: "https://github.com",
-    emailUrl: "mailto:soleakna@example.com",
+    telegramUrl: "https://t.me/bsvrnuth",
+    githubUrl: "https://github.com/nxthh",
+    emailUrl: "mailto:beansovannranuth@gmail.com",
   },
   {
     name: "Pouch Mary",
     role: "Frontend",
-    avatarUrl: "/images/mary.jpg",  
+    avatarUrl: "/images/mary.jpg",
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
     emailUrl: "mailto:sengthanu@example.com",
@@ -97,7 +115,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
   {
     name: "Chay Kimleang",
     role: "Frontend",
-    avatarUrl: "/images/mary.jpg", 
+    avatarUrl: "/images/mary.jpg",
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
     emailUrl: "mailto:silkhema@example.com",
@@ -128,7 +146,7 @@ const ProfileCard: React.FC<{ member: ProfileMember }> = ({ member }) => {
             fill
             unoptimized
             sizes="112px"
-            className="object-cover"
+            className="object-cover object-top"
           />
         </div>
       </div>
@@ -180,26 +198,69 @@ const ProfileCard: React.FC<{ member: ProfileMember }> = ({ member }) => {
 };
 
 const PLATFORM_STATS = [
-  { label: "Sporting Disciplines", value: "12+", icon: Trophy, detail: "Kun Khmer, CPL, Cycling, Swimming & more" },
-  { label: "Tournaments & Events", value: "100+", icon: Activity, detail: "Tracked across Cambodian provinces" },
-  { label: "Average API Response", value: "<120ms", icon: Zap, detail: "Ultra-fast Next.js server rendering" },
-  { label: "Student Engineering Team", value: "5 + 1", icon: Users, detail: "5 Students & 1 Academic Advisor" },
+  {
+    label: "Sporting Disciplines",
+    value: "12+",
+    icon: Trophy,
+    detail: "Kun Khmer, CPL, Cycling, Swimming & more",
+  },
+  {
+    label: "Tournaments & Events",
+    value: "100+",
+    icon: Activity,
+    detail: "Tracked across Cambodian provinces",
+  },
+  {
+    label: "Average API Response",
+    value: "<120ms",
+    icon: Zap,
+    detail: "Ultra-fast Next.js server rendering",
+  },
+  {
+    label: "Student Engineering Team",
+    value: "5 + 1",
+    icon: Users,
+    detail: "5 Students & 1 Academic Advisor",
+  },
 ];
 
 const TECH_STACK = [
-  { name: "Next.js 15", category: "Framework", desc: "App Router, Turbopack, and React Server Components." },
-  { name: "TypeScript", category: "Language", desc: "Type-safe interfaces and strict contract validation." },
-  { name: "Tailwind CSS", category: "Styling", desc: "Custom utility-first design system with dark/light themes." },
-  { name: "REST API", category: "Backend Core", desc: "Centralized live sports data endpoints and favorites toggle." },
-  { name: "Lucide Icons", category: "Iconography", desc: "Pixel-perfect modern SVG icon library." },
-  { name: "Responsive Architecture", category: "Mobile First", desc: "Seamless navigation across phones, tablets, and 4K displays." },
+  {
+    name: "Next.js 15",
+    category: "Framework",
+    desc: "App Router, Turbopack, and React Server Components.",
+  },
+  {
+    name: "TypeScript",
+    category: "Language",
+    desc: "Type-safe interfaces and strict contract validation.",
+  },
+  {
+    name: "Tailwind CSS",
+    category: "Styling",
+    desc: "Custom utility-first design system with dark/light themes.",
+  },
+  {
+    name: "REST API",
+    category: "Backend Core",
+    desc: "Centralized live sports data endpoints and favorites toggle.",
+  },
+  {
+    name: "Lucide Icons",
+    category: "Iconography",
+    desc: "Pixel-perfect modern SVG icon library.",
+  },
+  {
+    name: "Responsive Architecture",
+    category: "Mobile First",
+    desc: "Seamless navigation across phones, tablets, and 4K displays.",
+  },
 ];
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen py-12 sm:py-20 bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-zinc-100 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 sm:space-y-28">
-
         {/* 1. HERO SECTION */}
         <section className="text-center max-w-4xl mx-auto space-y-6 pt-4 sm:pt-8">
           {/* Status Badge */}
@@ -230,7 +291,9 @@ export default function AboutPage() {
 
           {/* Subtitle */}
           <p className="text-base sm:text-xl text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            SportsHub is an open digital arena engineered by five university software students under academic mentorship to centralize, elevate, and celebrate Cambodia&apos;s sporting heartbeat.
+            SportsHub is an open digital arena engineered by five university
+            software students under academic mentorship to centralize, elevate,
+            and celebrate Cambodia&apos;s sporting heartbeat.
           </p>
 
           {/* Action CTAs */}
@@ -292,7 +355,8 @@ export default function AboutPage() {
               The Architecture of Our Mission
             </h2>
             <p className="text-sm sm:text-base text-slate-600 dark:text-zinc-400">
-              Transforming fragmented sports schedules into an integrated digital experience.
+              Transforming fragmented sports schedules into an integrated
+              digital experience.
             </p>
           </div>
 
@@ -310,11 +374,22 @@ export default function AboutPage() {
                   One Unified Digital Home for Every Cambodian Discipline
                 </h3>
                 <p className="text-sm sm:text-base text-slate-600 dark:text-zinc-400 mt-4 leading-relaxed max-w-2xl">
-                  Before SportsHub, following Cambodian athletics required browsing through scattered Facebook groups, TV broadcasts, and word-of-mouth schedules. We built SportsHub to deliver synchronized tournament schedules, stadium locations, athlete profiles, and real-time category indexing in one authoritative platform.
+                  Before SportsHub, following Cambodian athletics required
+                  browsing through scattered Facebook groups, TV broadcasts, and
+                  word-of-mouth schedules. We built SportsHub to deliver
+                  synchronized tournament schedules, stadium locations, athlete
+                  profiles, and real-time category indexing in one authoritative
+                  platform.
                 </p>
               </div>
               <div className="mt-8 pt-6 border-t border-slate-200/80 dark:border-zinc-800/80 flex flex-wrap items-center gap-3">
-                {["Kun Khmer 🥊", "CPL Football ⚽", "National Cycling 🚴", "Aquatics 🏊", "Cambodian Chess ♟️"].map((tag) => (
+                {[
+                  "Kun Khmer 🥊",
+                  "CPL Football ⚽",
+                  "National Cycling 🚴",
+                  "Aquatics 🏊",
+                  "Cambodian Chess ♟️",
+                ].map((tag) => (
                   <span
                     key={tag}
                     className="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 border border-slate-200/60 dark:border-zinc-700/60"
@@ -338,7 +413,10 @@ export default function AboutPage() {
                   Honoring the Ring & Stadium Heritage
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-zinc-400 mt-3 leading-relaxed">
-                  Sports in Cambodia are steeped in centuries of heritage — from Angkorian martial arts to modern international champions. SportsHub celebrates this legacy through dedicated media coverage and digital archiving.
+                  Sports in Cambodia are steeped in centuries of heritage — from
+                  Angkorian martial arts to modern international champions.
+                  SportsHub celebrates this legacy through dedicated media
+                  coverage and digital archiving.
                 </p>
               </div>
               <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-rose-500">
@@ -360,7 +438,9 @@ export default function AboutPage() {
                   Decoupled, Sub-Second Performance
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-zinc-400 mt-3 leading-relaxed">
-                  Engineered with an asynchronous REST API architecture, caching layers, and instant optimistic updates so bookmarking your favorite matches feels instantaneous.
+                  Engineered with an asynchronous REST API architecture, caching
+                  layers, and instant optimistic updates so bookmarking your
+                  favorite matches feels instantaneous.
                 </p>
               </div>
               <div className="mt-6 flex items-center gap-2 text-xs font-mono text-teal-600 dark:text-teal-400">
@@ -394,7 +474,11 @@ export default function AboutPage() {
                   Built by 5 Software Engineering Students at ISTAD
                 </h3>
                 <p className="text-sm sm:text-base text-slate-600 dark:text-zinc-400 mt-3 leading-relaxed max-w-2xl">
-                  Born as a hands-on capstone project at the Institute of Science and Technology Advanced Development (ISTAD), SportsHub exemplifies real-world software engineering: continuous integration, Git collaboration, production performance auditing, and clean interface design.
+                  Born as a hands-on capstone project at the Institute of
+                  Science and Technology Advanced Development (ISTAD), SportsHub
+                  exemplifies real-world software engineering: continuous
+                  integration, Git collaboration, production performance
+                  auditing, and clean interface design.
                 </p>
               </div>
               <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 dark:text-zinc-400 pt-4 border-t border-slate-100 dark:border-zinc-800/60">
@@ -402,7 +486,9 @@ export default function AboutPage() {
                   <span className="w-2 h-2 rounded-full bg-emerald-500" />
                   Institute of Science and Technology Advanced Development
                 </span>
-                <span className="font-mono text-emerald-600 dark:text-emerald-400">Class of 2025/2026</span>
+                <span className="font-mono text-emerald-600 dark:text-emerald-400">
+                  Class of 2025/2026
+                </span>
               </div>
             </div>
           </div>
@@ -496,7 +582,8 @@ export default function AboutPage() {
             </h2>
 
             <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
-              Explore upcoming championship bouts, football fixtures, and provincial tournament categories live on SportsHub.
+              Explore upcoming championship bouts, football fixtures, and
+              provincial tournament categories live on SportsHub.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
@@ -515,7 +602,6 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-
       </div>
     </div>
   );
