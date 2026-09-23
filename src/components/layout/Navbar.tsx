@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import logoImg from "@/image/logo.png";
 import {
   Search,
@@ -32,12 +32,30 @@ export const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { theme, toggleTheme } = useTheme();
   const { totalFavoritesCount } = useFavorites();
 
   useEffect(() => {
     setMounted(true);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setMobileMenuOpen(false);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl transition-colors duration-300">
@@ -92,27 +110,37 @@ export const Navbar: React.FC = () => {
             {/* Search Trigger Button */}
             <div className="relative">
               {searchOpen ? (
-                <div className="flex items-center bg-white dark:bg-zinc-900 border border-emerald-500/60 rounded-xl px-3 py-1.5 shadow-lg">
-                  <Search className="w-4 h-4 text-emerald-500 dark:text-emerald-400 mr-2 shrink-0" />
+                <form
+                  onSubmit={handleSearchSubmit}
+                  className="flex items-center bg-white dark:bg-zinc-900 border border-emerald-500/60 rounded-xl px-3 py-1.5 shadow-lg"
+                >
+                  <button
+                    type="submit"
+                    aria-label="Submit search"
+                    className="text-emerald-500 dark:text-emerald-400 mr-2 shrink-0 hover:scale-110 transition-transform cursor-pointer"
+                  >
+                    <Search className="w-4 h-4" />
+                  </button>
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search sports, events, categories..."
+                    placeholder="Search sports, events, footer, team..."
                     className="bg-transparent text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none w-44 sm:w-60"
                     autoFocus
                   />
                   <button
+                    type="button"
                     onClick={() => {
                       setSearchOpen(false);
                       setSearchQuery("");
                     }}
-                    className="text-slate-400 hover:text-slate-600 dark:text-zinc-400 dark:hover:text-white ml-2 p-1"
+                    className="text-slate-400 hover:text-slate-600 dark:text-zinc-400 dark:hover:text-white ml-2 p-1 cursor-pointer"
                     aria-label="Close search"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
-                </div>
+                </form>
               ) : (
                 <button
                   onClick={() => setSearchOpen(true)}
@@ -160,7 +188,28 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-slate-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 px-4 pt-3 pb-6 space-y-2 backdrop-blur-2xl transition-colors">
+        <div className="lg:hidden border-b border-slate-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 px-4 pt-3 pb-6 space-y-3 backdrop-blur-2xl transition-colors">
+          {/* Mobile Search Bar */}
+          <form
+            onSubmit={handleSearchSubmit}
+            className="flex items-center bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl px-3 py-2 shadow-sm focus-within:border-emerald-500"
+          >
+            <Search className="w-4 h-4 text-emerald-500 dark:text-emerald-400 mr-2 shrink-0" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search sports, events, footer, team..."
+              className="bg-transparent text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none w-full"
+            />
+            <button
+              type="submit"
+              className="text-xs font-bold text-emerald-600 dark:text-emerald-400 ml-2 px-2 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 cursor-pointer"
+            >
+              Go
+            </button>
+          </form>
+
           <div className="grid grid-cols-1 gap-1">
             {navItems.map((item) => {
               const isActive = pathname === item.href;

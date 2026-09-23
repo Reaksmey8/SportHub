@@ -6,13 +6,28 @@ import { ErrorState } from "@/components/ui/ErrorState";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Sport } from "@/types/sport";
 
-export default async function SportsPage() {
+interface SportsPageProps {
+  searchParams?: Promise<{ search?: string; q?: string }>;
+}
+
+export default async function SportsPage({ searchParams }: SportsPageProps) {
+  const resolvedParams = await searchParams;
+  const searchQuery = (resolvedParams?.search || resolvedParams?.q || "").trim().toLowerCase();
+
   let sports: Sport[] = [];
   let error: string | null = null;
 
   try {
     const data = await sportsApi.getSports();
-    sports = Array.isArray(data) ? data : [];
+    const allSports = Array.isArray(data) ? data : [];
+    sports = searchQuery
+      ? allSports.filter(
+          (s) =>
+            s.name?.toLowerCase().includes(searchQuery) ||
+            s.description?.toLowerCase().includes(searchQuery) ||
+            s.category?.name?.toLowerCase().includes(searchQuery)
+        )
+      : allSports;
   } catch (err) {
     error = err instanceof Error ? err.message : "Unable to load sports from API.";
   }
