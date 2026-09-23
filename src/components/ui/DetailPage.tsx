@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Calendar, MapPin, Trophy } from "lucide-react";
+import { FavoriteButton } from "@/components/ui/FavoriteButton";
 
 interface DetailPageProps {
   title: string;
@@ -10,6 +11,8 @@ interface DetailPageProps {
   metadata: Array<{ label: string; value: string }>;
   backHref: string;
   backLabel: string;
+  favoriteType?: "sport" | "event";
+  favoriteUuid?: string;
 }
 
 export function DetailPage({
@@ -20,6 +23,8 @@ export function DetailPage({
   metadata,
   backHref,
   backLabel,
+  favoriteType,
+  favoriteUuid,
 }: DetailPageProps) {
   return (
     <div className="min-h-screen bg-slate-50 py-12 dark:bg-[#090d16] sm:py-20">
@@ -52,6 +57,16 @@ export function DetailPage({
             <span className="absolute bottom-5 left-5 rounded-lg bg-emerald-500/90 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-black">
               {badge}
             </span>
+            {favoriteType && favoriteUuid && (
+              <div className="absolute top-5 right-5 z-10">
+                <FavoriteButton
+                  type={favoriteType}
+                  uuid={favoriteUuid}
+                  showLabel
+                  size="md"
+                />
+              </div>
+            )}
           </div>
 
           <div className="p-6 sm:p-10">

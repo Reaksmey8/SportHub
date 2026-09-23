@@ -4,6 +4,10 @@ import { DetailPage } from "@/components/ui/DetailPage";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { ApiError } from "@/services/api/client";
 import { categoriesApi } from "@/services/api/categories";
+import {
+  getCategoryCoverImage,
+  getCategoryCleanDescription,
+} from "@/lib/categoryMeta";
 
 interface CategoryDetailsPageProps {
   params: Promise<{ uuid: string }>;
@@ -13,7 +17,8 @@ export async function generateMetadata({ params }: CategoryDetailsPageProps): Pr
   const { uuid } = await params;
   try {
     const category = await categoriesApi.getCategoryByUuid(uuid);
-    return { title: `${category.name} — SportsHub`, description: category.description };
+    const description = getCategoryCleanDescription(category);
+    return { title: `${category.name} — SportsHub`, description };
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) notFound();
     return { title: "Category Details — SportsHub" };
@@ -39,12 +44,16 @@ export default async function CategoryDetailsPage({ params }: CategoryDetailsPag
     ? category.sports.length
     : category.sports ?? 0;
 
+  const coverImage = getCategoryCoverImage(category);
+  const cleanDescription = getCategoryCleanDescription(category);
+
   return (
     <DetailPage
       title={category.name}
-      description={category.description}
+      description={cleanDescription}
+      imageUrl={coverImage}
       badge="Category"
-      backHref="/#categories"
+      backHref="/categories"
       backLabel="Back to categories"
       metadata={[{ label: "Sports", value: `${sportsCount} ${sportsCount === 1 ? "sport" : "sports"}` }]}
     />
