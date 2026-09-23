@@ -44,7 +44,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
           <span className="font-medium">Category</span>
         </div>
         <Link
-          href={`/categories#${category.uuid}`}
+          href={`/categories/${category.uuid}`}
           className="inline-flex items-center gap-1 font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors group-hover:translate-x-0.5"
         >
           <span>Explore</span>
