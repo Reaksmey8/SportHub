@@ -2,8 +2,11 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import type { StaticImageData } from "next/image";
 import logoImg from "@/image/logo.png";
 import schoolLogo from "@/image/school.png";
+import reaksmeyImg from "@/image/reaksmey.jpg";
+
 import {
   Trophy,
   Zap,
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
 export interface ProfileMember {
   name: string;
   role: string;
-  avatarUrl: string;
+  avatarUrl: string | StaticImageData;
   telegramUrl: string;
   githubUrl: string;
   emailUrl: string;
@@ -75,8 +78,8 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
   {
     name: "Chhom ChanReaksmey",
     role: "Frontend",
-    // REPLACE PHOTO HERE: Replace with your own image path
-    avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+    // REPLACE PHOTO HERE: Replace with your own image path (or import from @/image)
+    avatarUrl: reaksmeyImg,
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
     emailUrl: "mailto:ratana@example.com",
@@ -100,7 +103,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
     emailUrl: "mailto:sengthanu@example.com",
   },
   {
-    name: "Seng Silkhema",
+    name: "Chay Kimleang",
     role: "Frontend",
     // REPLACE PHOTO HERE: Replace with your own image path
     avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
@@ -109,7 +112,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
     emailUrl: "mailto:silkhema@example.com",
   },
   {
-    name: "Chhom Chanreaksmey",
+    name: "Bin SokSobath",
     role: "Frontend",
     // REPLACE PHOTO HERE: Replace with your own image path
     avatarUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
