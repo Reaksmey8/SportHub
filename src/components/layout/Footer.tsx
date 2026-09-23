@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Flame, Mail, Send, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
+import logoImg from "@/image/logo.png";
+import { Mail, Send, CheckCircle2 } from "lucide-react";
 
 export const Footer: React.FC = () => {
   const [subscribed, setSubscribed] = useState(false);
@@ -23,8 +25,14 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-black shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-                <Flame className="w-5 h-5 fill-black" />
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-md shadow-emerald-500/20 border border-emerald-500/30 group-hover:scale-105 transition-transform bg-zinc-950 shrink-0">
+                <Image
+                  src={logoImg}
+                  alt="SportsHub SH Logo"
+                  fill
+                  sizes="36px"
+                  className="object-cover"
+                />
               </div>
               <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans transition-colors">
                 Sports<span className="text-emerald-500 dark:text-emerald-400">Hub</span>

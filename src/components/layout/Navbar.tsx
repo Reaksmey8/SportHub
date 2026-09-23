@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
+import logoImg from "@/image/logo.png";
 import {
-  Flame,
   Search,
   Menu,
   X,
@@ -45,8 +46,15 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-black shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
-              <Flame className="w-6 h-6 fill-black" />
+            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-lg shadow-emerald-500/20 border border-emerald-500/30 group-hover:scale-105 transition-transform duration-300 bg-zinc-950 shrink-0">
+              <Image
+                src={logoImg}
+                alt="SportsHub SH Logo"
+                fill
+                priority
+                sizes="(max-width: 640px) 40px, 44px"
+                className="object-cover"
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans transition-colors">

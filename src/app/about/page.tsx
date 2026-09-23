@@ -1,11 +1,20 @@
 import Link from "next/link";
-import { ArrowLeft, Flame } from "lucide-react";
+import Image from "next/image";
+import logoImg from "@/image/logo.png";
+import { ArrowLeft } from "lucide-react";
 
 export default function AboutPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 text-center">
-      <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-6">
-        <Flame className="w-8 h-8 fill-emerald-600 dark:fill-emerald-400" />
+      <div className="relative w-20 h-20 rounded-2xl overflow-hidden shadow-xl shadow-emerald-500/20 border border-emerald-500/30 mx-auto mb-6 bg-zinc-950">
+        <Image
+          src={logoImg}
+          alt="SportsHub SH Logo"
+          fill
+          priority
+          sizes="80px"
+          className="object-cover"
+        />
       </div>
       <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 transition-colors">
         About SportsHub
