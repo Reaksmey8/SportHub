@@ -73,12 +73,10 @@ const MENTOR_DATA: ProfileMember = {
   emailUrl: "mailto:mentor@example.com",
 };
 
-// 5 MEMBERS (You can replace avatarUrl with your custom photo files)
 const TEAM_MEMBERS_DATA: ProfileMember[] = [
   {
     name: "Chhom ChanReaksmey",
     role: "Frontend",
-    // REPLACE PHOTO HERE: Replace with your own image path (or import from @/image)
     avatarUrl: reaksmeyImg,
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
