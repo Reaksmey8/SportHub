@@ -19,7 +19,6 @@ import {
   Sparkles,
   MapPin,
   CheckCircle2,
-  ExternalLink,
 } from "lucide-react";
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -32,9 +31,16 @@ const GithubIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-const LinkedinIcon: React.FC<{ className?: string }> = ({ className }) => (
+const TelegramIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+    <path d="M21.93 3.14a1.72 1.72 0 0 0-1.74-.29L2.57 10.37a1.73 1.73 0 0 0 .11 3.24l4.94 1.72 1.83 5.56a1.72 1.72 0 0 0 2.77.72l3.16-2.73 4.88 3.59a1.72 1.72 0 0 0 2.72-.94l3.52-16.73a1.72 1.72 0 0 0-4.57-1.66zm-3.41 3.82L8.91 13.5l-.83 2.52-.73-2.21 11.17-6.85z" />
+  </svg>
+);
+
+const MailIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+    <rect width="20" height="16" x="2" y="4" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
   </svg>
 );
 
@@ -44,94 +50,152 @@ export const metadata: Metadata = {
     "Discover the story, engineering philosophy, and the student team behind SportsHub — Cambodia's premier live athletic platform.",
 };
 
-interface TeamMember {
+export interface ProfileMember {
   name: string;
   role: string;
-  specialty: string;
-  favoriteSport: string;
-  sportEmoji: string;
-  bio: string;
-  skills: string[];
-  githubUrl: string;
-  linkedinUrl: string;
   avatarUrl: string;
+  telegramUrl: string;
+  githubUrl: string;
+  emailUrl: string;
 }
 
-const ACADEMIC_MENTOR = {
-  name: "Dr. Chan Vichea",
-  role: "Academic Mentor & Senior Tech Advisor",
-  affiliation: "ISTAD — Institute of Science and Technology Advanced Development",
-  bio: "Guiding the next generation of Cambodian software engineers in cloud architecture, modern web development standards, and robust API design.",
-  favoriteSport: "Kun Khmer & Marathon",
-  sportEmoji: "🥊",
-  skills: ["Software Architecture", "REST API Design", "Engineering Ethics", "Mentorship"],
+// 1 MENTOR (You can replace avatarUrl with your custom photo file e.g. "/images/mentor.png")
+const MENTOR_DATA: ProfileMember = {
+  name: "Eung Lyzhia",
+  role: "Mentor",
+  // REPLACE PHOTO HERE: Replace with your own image path
+  avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+  telegramUrl: "https://t.me",
   githubUrl: "https://github.com",
-  linkedinUrl: "https://linkedin.com",
-  avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+  emailUrl: "mailto:mentor@example.com",
 };
 
-const TEAM_MEMBERS: TeamMember[] = [
+// 5 MEMBERS (You can replace avatarUrl with your custom photo files)
+const TEAM_MEMBERS_DATA: ProfileMember[] = [
   {
-    name: "Reaksmey",
-    role: "Lead Full-Stack & UI/UX Architect",
-    specialty: "Next.js 15, State Architecture & Design Systems",
-    favoriteSport: "Football & Kun Khmer",
-    sportEmoji: "⚽",
-    bio: "Passionate about building blazing-fast, responsive web interfaces and uniting sports enthusiasts through clean, intuitive software.",
-    skills: ["Next.js 15", "TypeScript", "Tailwind CSS", "UI/UX"],
-    githubUrl: "https://github.com/Reaksmey8",
-    linkedinUrl: "https://linkedin.com",
-    avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80",
+    name: "Ratana Oudom",
+    role: "Frontend",
+    // REPLACE PHOTO HERE: Replace with your own image path
+    avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+    telegramUrl: "https://t.me",
+    githubUrl: "https://github.com",
+    emailUrl: "mailto:ratana@example.com",
   },
   {
-    name: "Dara Sopheak",
-    role: "Frontend & Animation Engineer",
-    specialty: "Interactive Components & Micro-interactions",
-    favoriteSport: "Cycling & Running",
-    sportEmoji: "🚴",
-    bio: "Dedicated to smooth user experiences, responsive layouts, and crafting accessible interactions that look gorgeous on every device.",
-    skills: ["React 19", "Tailwind CSS", "Framer Logic", "Accessibility"],
+    name: "Heng Soleakna",
+    role: "Frontend",
+    // REPLACE PHOTO HERE: Replace with your own image path
+    avatarUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+    telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
-    linkedinUrl: "https://linkedin.com",
-    avatarUrl: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=400&q=80",
+    emailUrl: "mailto:soleakna@example.com",
   },
   {
-    name: "Sreynich Chan",
-    role: "Backend & REST API Integrator",
-    specialty: "API Contracts, Caching & Data Synchronization",
-    favoriteSport: "Swimming",
-    sportEmoji: "🏊",
-    bio: "Bridges the gap between complex sports databases and frontend clients, ensuring zero-latency telemetry and robust error handling.",
-    skills: ["REST API", "Spring Boot", "Data Modeling", "Client State"],
-    githubUrl: "https://github.com",
-    linkedinUrl: "https://linkedin.com",
-    avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
-  },
-  {
-    name: "Vannak Pich",
-    role: "Event & Tournament Domain Specialist",
-    specialty: "Stadium Mapping, Categories & Geolocation",
-    favoriteSport: "Volleyball & Basketball",
-    sportEmoji: "🏐",
-    bio: "Researches and structures tournament fixtures, league tables, and venue information to deliver rich, contextual sports metadata.",
-    skills: ["Sports Analytics", "Postman", "Metadata Engineering", "Next.js"],
-    githubUrl: "https://github.com",
-    linkedinUrl: "https://linkedin.com",
+    name: "San Sengthanu",
+    role: "Frontend",
+    // REPLACE PHOTO HERE: Replace with your own image path
     avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    telegramUrl: "https://t.me",
+    githubUrl: "https://github.com",
+    emailUrl: "mailto:sengthanu@example.com",
   },
   {
-    name: "Kosal Borin",
-    role: "QA, Performance & Security Lead",
-    specialty: "Lighthouse Optimization, E2E Testing & Builds",
-    favoriteSport: "Chess & Boxing",
-    sportEmoji: "♟️",
-    bio: "Guarantees production reliability, high test coverage, and strict performance metrics across modern desktop and mobile browsers.",
-    skills: ["TypeScript", "Performance Auditing", "SEO Optimization", "CI/CD"],
+    name: "Seng Silkhema",
+    role: "Frontend",
+    // REPLACE PHOTO HERE: Replace with your own image path
+    avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+    telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
-    linkedinUrl: "https://linkedin.com",
-    avatarUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    emailUrl: "mailto:silkhema@example.com",
+  },
+  {
+    name: "Chhom Chanreaksmey",
+    role: "Frontend",
+    // REPLACE PHOTO HERE: Replace with your own image path
+    avatarUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
+    telegramUrl: "https://t.me",
+    githubUrl: "https://github.com",
+    emailUrl: "mailto:chanreaksmey@example.com",
   },
 ];
+
+// Reusable Profile Card Component matching Picture 2 design
+const ProfileCard: React.FC<{ member: ProfileMember }> = ({ member }) => {
+  return (
+    <div className="relative w-full max-w-[210px] sm:max-w-[225px] bg-[#f4f5f7] dark:bg-zinc-900 rounded-3xl border border-slate-200/90 dark:border-zinc-800 shadow-sm px-4 pt-6 pb-5 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl group">
+      {/* Decorative Red Wireframe Frame with terminal dots matching Picture 2 */}
+      <div className="absolute inset-2.5 sm:inset-3 rounded-2xl sm:rounded-3xl border-2 border-t-0 border-[#9e1111] dark:border-red-600/90 pointer-events-none transition-colors">
+        {/* Top Left Line & Terminal Dot */}
+        <div className="absolute -top-[2px] -left-[2px] w-[26%] sm:w-[28%] h-5 sm:h-6 border-t-2 border-l-2 border-[#9e1111] dark:border-red-600/90 rounded-tl-2xl sm:rounded-tl-3xl">
+          <span className="absolute -top-[5px] -right-1 w-2 h-2 rounded-full bg-[#9e1111] dark:bg-red-500 shadow-sm" />
+        </div>
+
+        {/* Top Right Line & Terminal Dot */}
+        <div className="absolute -top-[2px] -right-[2px] w-[26%] sm:w-[28%] h-5 sm:h-6 border-t-2 border-r-2 border-[#9e1111] dark:border-red-600/90 rounded-tr-2xl sm:rounded-tr-3xl">
+          <span className="absolute -top-[5px] -left-1 w-2 h-2 rounded-full bg-[#9e1111] dark:bg-red-500 shadow-sm" />
+        </div>
+      </div>
+
+      {/* Circular Avatar */}
+      <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-white dark:border-zinc-800 shadow-md mb-3 bg-slate-200 dark:bg-zinc-800 shrink-0">
+        <Image
+          src={member.avatarUrl}
+          alt={member.name}
+          fill
+          unoptimized
+          sizes="112px"
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+      </div>
+
+      {/* Member Name */}
+      <h3 className="text-sm sm:text-base font-bold text-[#9e1111] dark:text-red-400 tracking-tight leading-snug">
+        {member.name}
+      </h3>
+
+      {/* Role Badge */}
+      <div className="mt-2">
+        <span className="inline-block px-4 py-0.5 rounded-full text-xs font-semibold bg-[#9e1111] dark:bg-red-600 text-white shadow-sm tracking-wide">
+          {member.role}
+        </span>
+      </div>
+
+      {/* Social Links Row */}
+      <div className="mt-3.5 flex items-center justify-center gap-3 text-[#9e1111] dark:text-red-400">
+        {/* Telegram */}
+        <a
+          href={member.telegramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-1 rounded hover:text-red-500 dark:hover:text-red-300 transition-transform hover:scale-110 active:scale-95"
+          aria-label={`${member.name} on Telegram`}
+        >
+          <TelegramIcon className="w-3.5 h-3.5" />
+        </a>
+
+        {/* GitHub */}
+        <a
+          href={member.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-1 rounded hover:text-red-500 dark:hover:text-red-300 transition-transform hover:scale-110 active:scale-95"
+          aria-label={`${member.name} on GitHub`}
+        >
+          <GithubIcon className="w-3.5 h-3.5" />
+        </a>
+
+        {/* Email */}
+        <a
+          href={member.emailUrl}
+          className="p-1 rounded hover:text-red-500 dark:hover:text-red-300 transition-transform hover:scale-110 active:scale-95"
+          aria-label={`Email ${member.name}`}
+        >
+          <MailIcon className="w-3.5 h-3.5" />
+        </a>
+      </div>
+    </div>
+  );
+};
 
 const PLATFORM_STATS = [
   { label: "Sporting Disciplines", value: "12+", icon: Trophy, detail: "Kun Khmer, CPL, Cycling, Swimming & more" },
@@ -400,167 +464,28 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* 5. TEAM ROSTER SECTION */}
+        {/* 5. TEAM ROSTER SECTION MATCHING PICTURE 2 */}
         <section id="team" className="space-y-12">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-mono">
-              The Starting Lineup
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-              Meet the Engineers & Mentor
+          {/* MENTOR SECTION CONTAINER */}
+          <div className="p-8 sm:p-12 rounded-[32px] bg-white dark:bg-zinc-950/70 border border-slate-200/90 dark:border-zinc-800 shadow-sm max-w-3xl mx-auto space-y-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider text-[#9e1111] dark:text-red-500 text-center">
+              OUR MENTOR
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-zinc-400">
-              Five passionate software students and one academic mentor behind the platform.
-            </p>
-          </div>
-
-          {/* ACADEMIC MENTOR SPOTLIGHT CARD */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-emerald-500/5 via-teal-500/5 to-transparent dark:from-emerald-950/20 dark:via-zinc-900 dark:to-zinc-900 border border-emerald-500/30 dark:border-emerald-500/20 shadow-lg">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-3xl overflow-hidden border-2 border-emerald-500/40 shadow-xl shrink-0">
-                <Image
-                  src={ACADEMIC_MENTOR.avatarUrl}
-                  alt={ACADEMIC_MENTOR.name}
-                  fill
-                  sizes="144px"
-                  className="object-cover"
-                />
-              </div>
-
-              <div className="flex-1 space-y-4 text-center md:text-left">
-                <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-slate-950 shadow-sm flex items-center gap-1.5 font-mono">
-                    <GraduationCap className="w-3.5 h-3.5" />
-                    ACADEMIC MENTOR
-                  </span>
-                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700">
-                    {ACADEMIC_MENTOR.sportEmoji} {ACADEMIC_MENTOR.favoriteSport}
-                  </span>
-                </div>
-
-                <div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-                    {ACADEMIC_MENTOR.name}
-                  </h3>
-                  <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">
-                    {ACADEMIC_MENTOR.role}
-                  </p>
-                  <div className="flex items-center justify-center md:justify-start gap-2 pt-1">
-                    <div className="bg-white dark:bg-zinc-800 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-zinc-700/60 inline-flex items-center shrink-0">
-                      <Image
-                        src={schoolLogo}
-                        alt="ISTAD"
-                        width={80}
-                        height={26}
-                        className="h-4 w-auto object-contain"
-                      />
-                    </div>
-                    <span className="text-xs text-slate-500 dark:text-zinc-400 font-medium">
-                      {ACADEMIC_MENTOR.affiliation}
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-sm text-slate-600 dark:text-zinc-300 leading-relaxed max-w-2xl">
-                  {ACADEMIC_MENTOR.bio}
-                </p>
-
-                <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-1">
-                  {ACADEMIC_MENTOR.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-2.5 py-0.5 rounded-lg text-xs font-medium bg-white dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            <div className="flex justify-center">
+              <ProfileCard member={MENTOR_DATA} />
             </div>
           </div>
 
-          {/* 5 STUDENT ENGINEERS GRID */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TEAM_MEMBERS.map((member, index) => (
-              <div
-                key={member.name}
-                className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-white dark:bg-zinc-900/70 border border-slate-200/90 dark:border-zinc-800 hover:border-emerald-500/50 shadow-sm hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300 hover:-translate-y-1.5"
-              >
-                <div>
-                  {/* Top Row: Avatar & Sport Pill */}
-                  <div className="flex items-center justify-between gap-4 mb-5">
-                    <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-zinc-700 group-hover:border-emerald-500 transition-colors shadow-md">
-                      <Image
-                        src={member.avatarUrl}
-                        alt={member.name}
-                        fill
-                        sizes="64px"
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 flex items-center gap-1">
-                      <span>{member.sportEmoji}</span>
-                      <span className="truncate max-w-[100px]">{member.favoriteSport}</span>
-                    </span>
-                  </div>
-
-                  {/* Name & Specialty */}
-                  <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors">
-                    {member.name}
-                  </h4>
-                  <p className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mt-0.5">
-                    {member.role}
-                  </p>
-                  <p className="text-xs font-mono text-slate-400 dark:text-zinc-500 mt-0.5">
-                    {member.specialty}
-                  </p>
-
-                  {/* Bio */}
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-3 leading-relaxed">
-                    {member.bio}
-                  </p>
-
-                  {/* Skills */}
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {member.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Footer Socials */}
-                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-slate-400 dark:text-zinc-500">
-                    Squad Member #{index + 1}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <a
-                      href={member.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
-                      aria-label={`${member.name} on GitHub`}
-                    >
-                      <GithubIcon className="w-4 h-4" />
-                    </a>
-                    <a
-                      href={member.linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
-                      aria-label={`${member.name} on LinkedIn`}
-                    >
-                      <LinkedinIcon className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* MEET OUR TEAM SECTION CONTAINER */}
+          <div className="p-8 sm:p-12 rounded-[32px] bg-white dark:bg-zinc-950/70 border border-slate-200/90 dark:border-zinc-800 shadow-sm max-w-6xl mx-auto space-y-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider text-[#9e1111] dark:text-red-500 text-center">
+              MEET OUR TEAM
+            </h2>
+            <div className="flex flex-wrap justify-center gap-5 sm:gap-7">
+              {TEAM_MEMBERS_DATA.map((member) => (
+                <ProfileCard key={member.name} member={member} />
+              ))}
+            </div>
           </div>
         </section>
 
