@@ -43,8 +43,12 @@ export const Navbar: React.FC = () => {
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center group py-1" aria-label="Go to Home">
+          {/* Logo (shifted rightward while keeping ample space from navigation) */}
+          <Link
+            href="/"
+            className="flex items-center group py-1 ml-2 sm:ml-6 md:ml-10 lg:ml-16 xl:ml-24 transition-all duration-300"
+            aria-label="Go to Home"
+          >
             <div className="relative h-11 w-16 sm:h-13 sm:w-20 group-hover:scale-105 transition-transform duration-300 shrink-0">
               <Image
                 src={logoImg}
