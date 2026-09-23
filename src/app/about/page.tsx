@@ -64,11 +64,9 @@ export interface ProfileMember {
   emailUrl: string;
 }
 
-// 1 MENTOR (You can replace avatarUrl with your custom photo file e.g. "/images/mentor.png")
 const MENTOR_DATA: ProfileMember = {
   name: "Srorng Sokcheat",
   role: "Mentor",
-  // REPLACE PHOTO HERE: Replace with your own image path
   avatarUrl: "/images/teacher.jpg",
   telegramUrl: "https://t.me",
   githubUrl: "https://github.com",
