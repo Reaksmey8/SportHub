@@ -7,6 +7,7 @@ import logoImg from "@/image/logo.png";
 import schoolLogo from "@/image/school.png";
 import reaksmeyImg from "@/image/reaksmey.jpg";
 
+
 import {
   Trophy,
   Zap,
@@ -67,7 +68,7 @@ const MENTOR_DATA: ProfileMember = {
   name: "Srorng Sokcheat",
   role: "Mentor",
   // REPLACE PHOTO HERE: Replace with your own image path
-  avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+  avatarUrl: "/images/teacher.jpg",
   telegramUrl: "https://t.me",
   githubUrl: "https://github.com",
   emailUrl: "mailto:mentor@example.com",
@@ -88,7 +89,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
     name: "Bean SovannRanuth",
     role: "Frontend",
     // REPLACE PHOTO HERE: Replace with your own image path
-    avatarUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+    avatarUrl: "/images/nuth.png",
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
     emailUrl: "mailto:soleakna@example.com",
@@ -97,7 +98,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
     name: "Pouch Mary",
     role: "Frontend",
     // REPLACE PHOTO HERE: Replace with your own image path
-    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    avatarUrl: "/images/mary.jpg",  
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
     emailUrl: "mailto:sengthanu@example.com",
@@ -106,7 +107,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
     name: "Chay Kimleang",
     role: "Frontend",
     // REPLACE PHOTO HERE: Replace with your own image path
-    avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+    avatarUrl: "/images/mary.jpg", 
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
     emailUrl: "mailto:silkhema@example.com",
@@ -114,8 +115,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
   {
     name: "Bin SokSobath",
     role: "Frontend",
-    // REPLACE PHOTO HERE: Replace with your own image path
-    avatarUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
+    avatarUrl: "/images/sombath.jpg",
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
     emailUrl: "mailto:chanreaksmey@example.com",
