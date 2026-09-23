@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logoImg from "@/image/logo.png";
-import schoolLogo from "@/image/school.png";
 import { Mail, Send, CheckCircle2 } from "lucide-react";
 
 export const Footer: React.FC = () => {
@@ -28,7 +26,7 @@ export const Footer: React.FC = () => {
             <Link href="/" className="inline-flex items-center gap-3 group" aria-label="Go to Home">
               <div className="relative h-14 w-20 sm:h-16 sm:w-24 group-hover:scale-105 transition-transform duration-300 shrink-0">
                 <Image
-                  src={logoImg}
+                  src="/images/logo.png"
                   alt="SH Logo"
                   fill
                   sizes="(max-width: 640px) 80px, 96px"
@@ -192,9 +190,11 @@ export const Footer: React.FC = () => {
             {/* School / Organization Logo */}
             <div className="mt-5">
               <div>
-               <img
-                  src={schoolLogo.src}
+               <Image
+                  src="/images/school.png"
                   alt="School Logo"
+                  width={208}
+                  height={60}
                   className="w-52 h-auto object-contain"
                 />
               </div>

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import logoImg from "@/image/logo.png";
 import {
   Search,
   Menu,
@@ -69,7 +68,7 @@ export const Navbar: React.FC = () => {
           >
             <div className="relative h-11 w-16 sm:h-13 sm:w-20 group-hover:scale-105 transition-transform duration-300 shrink-0">
               <Image
-                src={logoImg}
+                src="/images/logo.png"
                 alt="SH Logo"
                 fill
                 priority

@@ -2,10 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import type { StaticImageData } from "next/image";
-import logoImg from "@/image/logo.png";
-import schoolLogo from "@/image/school.png";
-import reaksmeyImg from "@/image/reaksmey.jpg";
 
 
 import {
@@ -58,7 +54,7 @@ export const metadata: Metadata = {
 export interface ProfileMember {
   name: string;
   role: string;
-  avatarUrl: string | StaticImageData;
+  avatarUrl: string;
   telegramUrl: string;
   githubUrl: string;
   emailUrl: string;
@@ -77,7 +73,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
   {
     name: "Chhom ChanReaksmey",
     role: "Frontend",
-    avatarUrl: reaksmeyImg,
+    avatarUrl: "/images/reaksmey.jpg",
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
     emailUrl: "mailto:ratana@example.com",
@@ -215,7 +211,7 @@ export default function AboutPage() {
           {/* Logo Showcase */}
           <div className="relative h-20 w-32 sm:h-24 sm:w-40 mx-auto transition-transform hover:scale-105 duration-300">
             <Image
-              src={logoImg}
+              src="/images/logo.png"
               alt="SportsHub SH Logo"
               fill
               priority
@@ -383,7 +379,7 @@ export default function AboutPage() {
                   </div>
                   <div className="bg-white px-3 py-1.5 rounded-xl border border-slate-200 dark:border-zinc-700 shadow-sm flex items-center">
                     <Image
-                      src={schoolLogo}
+                      src="/images/school.png"
                       alt="ISTAD Logo"
                       width={120}
                       height={40}
