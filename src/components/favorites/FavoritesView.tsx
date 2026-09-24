@@ -40,8 +40,6 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
   const {
     isSportFavorited,
     isEventFavorited,
-    removeSportFavorite,
-    removeEventFavorite,
     clearAllFavorites,
   } = useFavorites();
 
@@ -63,16 +61,6 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
     setTimeout(() => {
       setToastMessage((prev) => (prev === message ? null : prev));
     }, 3000);
-  };
-
-  const handleDeleteSport = async (sport: Sport) => {
-    await removeSportFavorite(sport.uuid);
-    showToast(`Removed "${sport.name}" from favorites.`);
-  };
-
-  const handleDeleteEvent = async (event: Event) => {
-    await removeEventFavorite(event.uuid);
-    showToast(`Removed "${event.name}" from favorites.`);
   };
 
   const handleClearAll = async () => {
@@ -309,22 +297,7 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {activeSports.map((sport) => (
-                  <div key={sport.uuid || sport.id} className="relative group/card">
-                    <SportCard sport={sport} />
-                    {/* Explicit Delete Button */}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        handleDeleteSport(sport);
-                      }}
-                      className="absolute top-3 right-14 z-20 p-2 rounded-full bg-white/95 dark:bg-zinc-900/95 text-slate-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 border border-slate-200/80 dark:border-zinc-700/60 shadow-md backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95"
-                      title="Delete from favorites"
-                      aria-label={`Delete ${sport.name} from favorites`}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
+                  <SportCard key={sport.uuid || sport.id} sport={sport} />
                 ))}
               </div>
             </div>
@@ -342,22 +315,7 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {activeEvents.map((event) => (
-                  <div key={event.uuid || event.id} className="relative group/card">
-                    <EventCard event={event} />
-                    {/* Explicit Delete Button */}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        handleDeleteEvent(event);
-                      }}
-                      className="absolute top-3 right-14 z-20 p-2 rounded-full bg-white/95 dark:bg-zinc-900/95 text-slate-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 border border-slate-200/80 dark:border-zinc-700/60 shadow-md backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95"
-                      title="Delete from favorites"
-                      aria-label={`Delete ${event.name} from favorites`}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
+                  <EventCard key={event.uuid || event.id} event={event} />
                 ))}
               </div>
             </div>
@@ -370,21 +328,7 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
           {activeSports.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {activeSports.map((sport) => (
-                <div key={sport.uuid || sport.id} className="relative group/card">
-                  <SportCard sport={sport} />
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      handleDeleteSport(sport);
-                    }}
-                    className="absolute top-3 right-14 z-20 p-2 rounded-full bg-white/95 dark:bg-zinc-900/95 text-slate-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 border border-slate-200/80 dark:border-zinc-700/60 shadow-md backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95"
-                    title="Delete from favorites"
-                    aria-label={`Delete ${sport.name} from favorites`}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+                <SportCard key={sport.uuid || sport.id} sport={sport} />
               ))}
             </div>
           ) : (
@@ -400,21 +344,7 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
           {activeEvents.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {activeEvents.map((event) => (
-                <div key={event.uuid || event.id} className="relative group/card">
-                  <EventCard event={event} />
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      handleDeleteEvent(event);
-                    }}
-                    className="absolute top-3 right-14 z-20 p-2 rounded-full bg-white/95 dark:bg-zinc-900/95 text-slate-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 border border-slate-200/80 dark:border-zinc-700/60 shadow-md backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95"
-                    title="Delete from favorites"
-                    aria-label={`Delete ${event.name} from favorites`}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+                <EventCard key={event.uuid || event.id} event={event} />
               ))}
             </div>
           ) : (
