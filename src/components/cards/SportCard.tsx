@@ -1,20 +1,30 @@
-import React from "react";
+"use client";
+// import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Trophy, Flame } from "lucide-react";
+import { ChevronRight, Trophy, Flame, Heart } from "lucide-react";
 import { Sport } from "@/types/sport";
+// import React, {useState} from "react"
+import React, { useEffect, useState } from "react";
 
 interface SportCardProps {
   sport: Sport;
 }
 
 export const SportCard: React.FC<SportCardProps> = ({ sport }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const favoriteKey = `favorite-sport-${sport.uuid}`;
   const imageUrl = sport.imageUrls?.[0];
   const categoryName = sport.category?.name || "General";
 
+  useEffect(() => {
+    const saved = localStorage.getItem(favoriteKey);
+    setIsFavorite(saved === "true");
+  }, [favoriteKey]);
+
   return (
     <Link
-      href="#sports"
+      href={`/sports/${sport.uuid}`}
       className="group relative flex flex-col justify-between rounded-2xl bg-white dark:bg-zinc-900/50 hover:bg-slate-50/80 dark:hover:bg-zinc-900/90 border border-slate-200/90 dark:border-zinc-800/80 hover:border-emerald-500/50 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:shadow-emerald-500/5 cursor-pointer shadow-sm dark:shadow-none overflow-hidden"
     >
       <div>
@@ -65,6 +75,25 @@ export const SportCard: React.FC<SportCardProps> = ({ sport }) => {
             {categoryName}
           </span>
         </div>
+
+        {/* Take the favorite Icon on the top in Image */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault;
+            e.stopPropagation;
+            setIsFavorite(!isFavorite);
+            const newValue = !isFavorite;
+            setIsFavorite(newValue);
+            localStorage.setItem(favoriteKey, String(newValue));
+          }}
+          className="absolute top-3 right-3 rounded-full bg-white/90 p-2 text-slate-600 shadow-md hover:text-red-500 transition-colors"
+        >
+          <Heart
+            className={`w-5 h-5 ${isFavorite ? "text-red-500 fill-red-500" : "text-slate-400"} `}
+          />
+        </button>
+
         <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold group-hover:translate-x-1 transition-transform">
           <span>Explore</span>
           <ChevronRight className="w-3.5 h-3.5" />
