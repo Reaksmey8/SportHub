@@ -24,7 +24,6 @@ export const FeaturedEvents: React.FC = async () => {
           badge="LIVE & UPCOMING EVENTS"
           title="Featured Events"
           subtitle="Explore live tournaments, competitive clashes, and athletic events happening across the country."
-          action={{ label: "View All Events", href: "/events" }}
         />
 
         {error ? (
@@ -42,8 +41,8 @@ export const FeaturedEvents: React.FC = async () => {
           <EmptyState
             title="No events found"
             message="There are currently no events available from the backend API."
-            actionLabel="View Events Page"
-            actionHref="/events"
+            actionLabel="Refresh"
+            actionHref="#events"
           />
         )}
       </div>

@@ -26,7 +26,7 @@ export const CallToAction: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <Button
-                href="/sports"
+                href="#sports"
                 variant="primary"
                 size="lg"
                 icon={<ArrowRight className="w-4 h-4" />}
@@ -35,7 +35,7 @@ export const CallToAction: React.FC = () => {
                 Explore Sports
               </Button>
               <Button
-                href="/events"
+                href="#events"
                 variant="secondary"
                 size="lg"
                 className="w-full sm:w-auto"

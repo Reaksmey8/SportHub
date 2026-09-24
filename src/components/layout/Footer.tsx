@@ -105,18 +105,13 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/events" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                <Link href="#events" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                   Events
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                <Link href="#categories" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                   Categories
-                </Link>
-              </li>
-              <li>
-                <Link href="/favorites" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-                  Favorites
                 </Link>
               </li>
             </ul>
@@ -206,9 +201,9 @@ export const Footer: React.FC = () => {
         <div className="pt-8 border-t border-slate-200 dark:border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-zinc-500">
           <p>© {new Date().getFullYear()} SportsHub. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-slate-900 dark:hover:text-zinc-300 transition-colors">
+            <span className="hover:text-slate-900 dark:hover:text-zinc-300 cursor-pointer transition-colors">
               About
-            </Link>
+            </span>
             <span className="hover:text-slate-900 dark:hover:text-zinc-300 cursor-pointer transition-colors">
               Privacy Policy
             </span>

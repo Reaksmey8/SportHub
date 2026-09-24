@@ -1,13 +1,11 @@
+export type CommentEntityType = "sport" | "event" | "category";
+
 export interface Comment {
-  id: number;
-  uuid: string;
-  eventUuid: string;
-  comment: string;
+  id: string;
+  entityType: CommentEntityType;
+  entityUuid: string;
+  userId: string;
+  userName: string;
+  text: string;
   createdAt: string;
 }
-
-export interface CreateCommentPayload {
-  eventUuid: string;
-  comment: string;
-}
-

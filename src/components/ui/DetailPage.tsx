@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Calendar, MapPin, Trophy } from "lucide-react";
 import { FavoriteButton } from "@/components/ui/FavoriteButton";
+import { CommentsSection } from "@/components/comments/CommentsSection";
+import type { CommentEntityType } from "@/types/comment";
 
 interface DetailPageProps {
   title: string;
@@ -13,6 +15,8 @@ interface DetailPageProps {
   backLabel: string;
   favoriteType?: "sport" | "event";
   favoriteUuid?: string;
+  commentEntityType?: CommentEntityType;
+  commentEntityUuid?: string;
 }
 
 export function DetailPage({
@@ -25,6 +29,8 @@ export function DetailPage({
   backLabel,
   favoriteType,
   favoriteUuid,
+  commentEntityType,
+  commentEntityUuid,
 }: DetailPageProps) {
   return (
     <div className="min-h-screen bg-slate-50 py-12 dark:bg-[#090d16] sm:py-20">
@@ -97,6 +103,9 @@ export function DetailPage({
                   </div>
                 ))}
               </dl>
+            )}
+            {commentEntityType && commentEntityUuid && (
+              <CommentsSection entityType={commentEntityType} entityUuid={commentEntityUuid} />
             )}
           </div>
         </article>

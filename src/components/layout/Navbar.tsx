@@ -12,10 +12,13 @@ import {
   TrendingUp,
   Sun,
   Moon,
+  LogIn,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/theme/ThemeProvider";
 import { useFavorites } from "@/context/FavoritesContext";
+import { useAuth } from "@/context/AuthContext";
 
 const navItems = [
   { name: "Sports", href: "/sports" },
@@ -34,9 +37,10 @@ export const Navbar: React.FC = () => {
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
   const { totalFavoritesCount } = useFavorites();
+  const { user, mounted: authMounted, logout } = useAuth();
 
   useEffect(() => {
-    setMounted(true);
+    const hydrationId = window.setTimeout(() => setMounted(true), 0);
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
@@ -44,7 +48,10 @@ export const Navbar: React.FC = () => {
       }
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      window.clearTimeout(hydrationId);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -104,7 +111,7 @@ export const Navbar: React.FC = () => {
             })}
           </nav>
 
-          {/* Action Area: Search, Theme Toggle & Mobile Menu */}
+          {/* Action Area: Search, Theme Toggle, Auth & Mobile Menu */}
           <div className="flex items-center gap-2 sm:gap-2.5">
             {/* Search Trigger Button */}
             <div className="relative">
@@ -173,6 +180,23 @@ export const Navbar: React.FC = () => {
               )}
             </button>
 
+            {authMounted && (
+              user ? (
+                <button
+                  onClick={logout}
+                  title={`Sign out ${user.name}`}
+                  className="hidden items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white sm:flex"
+                >
+                  <LogOut className="h-4 w-4 text-emerald-400" />
+                  <span className="max-w-24 truncate">{user.name}</span>
+                </button>
+              ) : (
+                <Link href="/auth" aria-label="Sign in" className="hidden rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-2.5 text-emerald-400 hover:bg-emerald-500/20 sm:block">
+                  <LogIn className="h-4 w-4" />
+                </Link>
+              )
+            )}
+
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -230,6 +254,18 @@ export const Navbar: React.FC = () => {
                       <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white font-mono leading-none shadow-sm">
                         {totalFavoritesCount}
                       </span>
+                    )}
+                  </div>
+
+                  <div className="border-t border-zinc-800 pt-3">
+                    {authMounted && user ? (
+                      <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="flex w-full items-center gap-2 rounded-xl px-4 py-3 text-left text-sm text-zinc-300 hover:bg-zinc-900">
+                        <LogOut className="h-4 w-4 text-emerald-400" /> Sign out {user.name}
+                      </button>
+                    ) : (
+                      <Link href="/auth" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm text-emerald-400 hover:bg-zinc-900">
+                        <LogIn className="h-4 w-4" /> Sign in to comment
+                      </Link>
                     )}
                   </div>
                   <ChevronRight className="w-4 h-4 text-slate-400 dark:text-zinc-500" />

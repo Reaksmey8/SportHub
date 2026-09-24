@@ -56,6 +56,8 @@ export default async function EventDetailsPage({ params }: EventDetailsPageProps
       backLabel="Back to events"
       favoriteType="event"
       favoriteUuid={event.uuid}
+      commentEntityType="event"
+      commentEntityUuid={event.uuid}
       metadata={[
         { label: "Date", value: createdAt },
         { label: "Location", value: event.locationName || "Location to be announced" },

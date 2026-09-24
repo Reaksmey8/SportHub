@@ -44,6 +44,8 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
       backLabel="Back to sports"
       favoriteType="sport"
       favoriteUuid={sport.uuid}
+      commentEntityType="sport"
+      commentEntityUuid={sport.uuid}
       metadata={[{ label: "Category", value: sport.category?.name || "General" }]}
     />
   );

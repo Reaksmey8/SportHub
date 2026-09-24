@@ -46,7 +46,7 @@ export const HeroSection: React.FC = () => {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Button
-              href="/sports"
+              href="#sports"
               variant="primary"
               size="lg"
               icon={<ArrowRight className="w-4 h-4" />}
@@ -55,7 +55,7 @@ export const HeroSection: React.FC = () => {
               Explore Sports
             </Button>
             <Button
-              href="/events"
+              href="#events"
               variant="secondary"
               size="lg"
               className="w-full sm:w-auto"

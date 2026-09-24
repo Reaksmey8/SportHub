@@ -24,7 +24,6 @@ export const SportsSection: React.FC = async () => {
           badge="CATEGORIES & DISCIPLINES"
           title="Explore Sports"
           subtitle="Discover active sports, tournaments, and stories powered by the SportsHub live API."
-          action={{ label: "View All Sports", href: "/sports" }}
         />
 
         {error ? (
@@ -43,7 +42,7 @@ export const SportsSection: React.FC = async () => {
             title="No sports found"
             message="There are currently no sports available from the backend API."
             actionLabel="Refresh"
-            actionHref="/sports"
+            actionHref="#sports"
           />
         )}
       </div>

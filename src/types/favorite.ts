@@ -11,4 +11,3 @@ export interface CreateFavoritePayload {
   sportUuid?: string;
   eventUuid?: string;
 }
-

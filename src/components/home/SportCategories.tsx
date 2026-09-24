@@ -24,7 +24,6 @@ export const SportCategories: React.FC = async () => {
           badge="ORGANIZED DISCIPLINES"
           title="Sport Categories"
           subtitle="Discover sports categorized by discipline, from football and cycling to swimming and combat arts."
-          action={{ label: "All Categories", href: "/categories" }}
         />
 
         {error ? (
@@ -42,8 +41,8 @@ export const SportCategories: React.FC = async () => {
           <EmptyState
             title="No categories found"
             message="There are currently no sport categories available from the backend API."
-            actionLabel="View Categories Page"
-            actionHref="/categories"
+            actionLabel="Refresh"
+            actionHref="#categories"
           />
         )}
       </div>

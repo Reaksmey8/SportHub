@@ -55,6 +55,8 @@ export default async function CategoryDetailsPage({ params }: CategoryDetailsPag
       badge="Category"
       backHref="/categories"
       backLabel="Back to categories"
+      commentEntityType="category"
+      commentEntityUuid={category.uuid}
       metadata={[{ label: "Sports", value: `${sportsCount} ${sportsCount === 1 ? "sport" : "sports"}` }]}
     />
   );
