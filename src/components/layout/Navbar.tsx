@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import { useFavorites } from "@/context/FavoritesContext";
 import { useAuth } from "@/context/AuthContext";
 
 const navItems = [
@@ -36,7 +35,6 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
-  const { totalFavoritesCount } = useFavorites();
   const { user, mounted: authMounted, logout } = useAuth();
 
   useEffect(() => {
@@ -86,7 +84,7 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -94,18 +92,13 @@ export const Navbar: React.FC = () => {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-150 inline-flex items-center gap-1.5",
+                    "relative py-2 px-3.5 text-sm font-medium transition-colors duration-200 inline-flex items-center",
                     isActive
-                      ? "text-emerald-600 bg-emerald-500/10 dark:text-emerald-400 dark:bg-white/5 font-semibold"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5"
+                      ? "text-emerald-600 dark:text-emerald-400 font-semibold after:absolute after:bottom-0 after:left-3.5 after:right-3.5 after:h-0.5 after:bg-emerald-500 after:rounded-full"
+                      : "text-slate-600 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400"
                   )}
                 >
                   <span>{item.name}</span>
-                  {item.name === "Favorites" && mounted && totalFavoritesCount > 0 && (
-                    <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white font-mono leading-none shadow-sm">
-                      {totalFavoritesCount}
-                    </span>
-                  )}
                 </Link>
               );
             })}
@@ -250,11 +243,6 @@ export const Navbar: React.FC = () => {
                 >
                   <div className="flex items-center gap-2">
                     <span>{item.name}</span>
-                    {item.name === "Favorites" && mounted && totalFavoritesCount > 0 && (
-                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white font-mono leading-none shadow-sm">
-                        {totalFavoritesCount}
-                      </span>
-                    )}
                   </div>
 
                   <ChevronRight className="w-4 h-4 text-slate-400 dark:text-zinc-500" />
