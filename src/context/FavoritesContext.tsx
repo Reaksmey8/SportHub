@@ -8,9 +8,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { Favorite } from "@/types/favorite";
-
-const LOCAL_STORAGE_KEY = "sportshub_favorites_v1";
+import { useAuth } from "@/context/AuthContext";
 
 interface CachedFavorites {
   sports: string[];
@@ -45,76 +43,57 @@ const defaultContext: FavoritesContextType = {
 
 const FavoritesContext = createContext<FavoritesContextType>(defaultContext);
 
+// Generates account-isolated storage key
+export function getFavoritesStorageKey(userId?: string | null): string {
+  return userId ? `sportshub_favorites_user_${userId}` : `sportshub_favorites_guest`;
+}
+
 export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { user, mounted: authMounted } = useAuth();
   const [sportUuids, setSportUuids] = useState<Set<string>>(new Set());
   const [eventUuids, setEventUuids] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
 
-  // 1. Load cached favorites on initial mount for 0ms lag
+  // 1. Whenever the authenticated user changes, load that user's private favorites
   useEffect(() => {
+    if (!authMounted) return;
+    const storageKey = getFavoritesStorageKey(user?.id);
     try {
-      const cached = localStorage.getItem(LOCAL_STORAGE_KEY);
+      const cached = localStorage.getItem(storageKey);
       if (cached) {
         const parsed: CachedFavorites = JSON.parse(cached);
-        if (Array.isArray(parsed.sports)) setSportUuids(new Set(parsed.sports));
-        if (Array.isArray(parsed.events)) setEventUuids(new Set(parsed.events));
+        setSportUuids(new Set(Array.isArray(parsed.sports) ? parsed.sports : []));
+        setEventUuids(new Set(Array.isArray(parsed.events) ? parsed.events : []));
+      } else {
+        setSportUuids(new Set());
+        setEventUuids(new Set());
       }
     } catch {
-      // ignore JSON parse errors
-    }
-  }, []);
-
-  const saveToStorage = (sports: Set<string>, events: Set<string>) => {
-    try {
-      const data: CachedFavorites = {
-        sports: Array.from(sports),
-        events: Array.from(events),
-      };
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
-    } catch {
-      // ignore storage quota errors
-    }
-  };
-
-  // 2. Fetch fresh favorites from the API proxy
-  const fetchFavorites = useCallback(async () => {
-    try {
-      const res = await fetch("/api/favorites", { cache: "no-store" });
-      if (!res.ok) return;
-
-      const items: Favorite[] = await res.json();
-      if (!Array.isArray(items)) return;
-
-      const activeSports = new Set<string>();
-      const activeEvents = new Set<string>();
-
-      items.forEach((item) => {
-        // Must be active and not deleted
-        if (item.isFavorite !== false && !item.isDeleted) {
-          if (item.sportUuid && item.sportUuid.trim()) {
-            activeSports.add(item.sportUuid.trim());
-          }
-          if (item.eventUuid && item.eventUuid.trim()) {
-            activeEvents.add(item.eventUuid.trim());
-          }
-        }
-      });
-
-      setSportUuids(activeSports);
-      setEventUuids(activeEvents);
-      saveToStorage(activeSports, activeEvents);
-    } catch (err) {
-      console.error("Error fetching favorites from API:", err);
+      setSportUuids(new Set());
+      setEventUuids(new Set());
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [user?.id, authMounted]);
 
-  useEffect(() => {
-    fetchFavorites();
-  }, [fetchFavorites]);
+  // 2. Save favorites specifically under the active user's key
+  const saveToStorage = useCallback(
+    (sports: Set<string>, events: Set<string>) => {
+      try {
+        const storageKey = getFavoritesStorageKey(user?.id);
+        const data: CachedFavorites = {
+          sports: Array.from(sports),
+          events: Array.from(events),
+        };
+        localStorage.setItem(storageKey, JSON.stringify(data));
+      } catch {
+        // ignore storage errors
+      }
+    },
+    [user?.id]
+  );
 
   const isSportFavorited = useCallback(
     (uuid: string) => {
@@ -139,7 +118,6 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
       const wasFavorited = sportUuids.has(uuid);
       const nextFavorited = !wasFavorited;
 
-      // Optimistic update
       const updated = new Set(sportUuids);
       if (nextFavorited) {
         updated.add(uuid);
@@ -149,38 +127,20 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
       setSportUuids(updated);
       saveToStorage(updated, eventUuids);
 
+      // Background sync to backend API proxy (non-blocking)
       try {
-        const res = await fetch("/api/favorites", {
+        fetch("/api/favorites", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ sportUuid: uuid }),
-        });
-
-        if (!res.ok) {
-          throw new Error("Failed to toggle sport favorite");
-        }
-
-        const data = await res.json();
-        const serverState = data.isFavorite ?? nextFavorited;
-
-        const confirmed = new Set(updated);
-        if (serverState) {
-          confirmed.add(uuid);
-        } else {
-          confirmed.delete(uuid);
-        }
-        setSportUuids(confirmed);
-        saveToStorage(confirmed, eventUuids);
-        return serverState;
-      } catch (err) {
-        console.error("Reverting optimistic favorite update:", err);
-        // Rollback
-        setSportUuids(sportUuids);
-        saveToStorage(sportUuids, eventUuids);
-        return wasFavorited;
+        }).catch(() => {});
+      } catch {
+        // silent
       }
+
+      return nextFavorited;
     },
-    [sportUuids, eventUuids]
+    [sportUuids, eventUuids, saveToStorage]
   );
 
   const toggleEventFavorite = useCallback(
@@ -190,7 +150,6 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
       const wasFavorited = eventUuids.has(uuid);
       const nextFavorited = !wasFavorited;
 
-      // Optimistic update
       const updated = new Set(eventUuids);
       if (nextFavorited) {
         updated.add(uuid);
@@ -201,37 +160,18 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
       saveToStorage(sportUuids, updated);
 
       try {
-        const res = await fetch("/api/favorites", {
+        fetch("/api/favorites", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ eventUuid: uuid }),
-        });
-
-        if (!res.ok) {
-          throw new Error("Failed to toggle event favorite");
-        }
-
-        const data = await res.json();
-        const serverState = data.isFavorite ?? nextFavorited;
-
-        const confirmed = new Set(updated);
-        if (serverState) {
-          confirmed.add(uuid);
-        } else {
-          confirmed.delete(uuid);
-        }
-        setEventUuids(confirmed);
-        saveToStorage(sportUuids, confirmed);
-        return serverState;
-      } catch (err) {
-        console.error("Reverting optimistic favorite update:", err);
-        // Rollback
-        setEventUuids(eventUuids);
-        saveToStorage(sportUuids, eventUuids);
-        return wasFavorited;
+        }).catch(() => {});
+      } catch {
+        // silent
       }
+
+      return nextFavorited;
     },
-    [eventUuids, sportUuids]
+    [eventUuids, sportUuids, saveToStorage]
   );
 
   const removeSportFavorite = useCallback(
@@ -255,37 +195,24 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 
   const clearAllFavorites = useCallback(async () => {
-    const currentSports = Array.from(sportUuids);
-    const currentEvents = Array.from(eventUuids);
-
-    // Optimistically clear immediately
     setSportUuids(new Set());
     setEventUuids(new Set());
     saveToStorage(new Set(), new Set());
+  }, [saveToStorage]);
 
+  const refetchFavorites = useCallback(async () => {
+    const storageKey = getFavoritesStorageKey(user?.id);
     try {
-      await Promise.all([
-        ...currentSports.map((uuid) =>
-          fetch("/api/favorites", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ sportUuid: uuid }),
-          })
-        ),
-        ...currentEvents.map((uuid) =>
-          fetch("/api/favorites", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ eventUuid: uuid }),
-          })
-        ),
-      ]);
-    } catch (err) {
-      console.error("Error clearing all favorites:", err);
-      // Re-fetch to get consistent state
-      fetchFavorites();
+      const cached = localStorage.getItem(storageKey);
+      if (cached) {
+        const parsed: CachedFavorites = JSON.parse(cached);
+        setSportUuids(new Set(Array.isArray(parsed.sports) ? parsed.sports : []));
+        setEventUuids(new Set(Array.isArray(parsed.events) ? parsed.events : []));
+      }
+    } catch {
+      // ignore
     }
-  }, [sportUuids, eventUuids, fetchFavorites]);
+  }, [user?.id]);
 
   const totalFavoritesCount = useMemo(
     () => sportUuids.size + eventUuids.size,
@@ -304,7 +231,7 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
         clearAllFavorites,
         totalFavoritesCount,
         loading,
-        refetchFavorites: fetchFavorites,
+        refetchFavorites,
       }}
     >
       {children}

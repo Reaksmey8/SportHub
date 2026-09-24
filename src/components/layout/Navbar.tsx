@@ -257,21 +257,40 @@ export const Navbar: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="border-t border-zinc-800 pt-3">
-                    {authMounted && user ? (
-                      <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="flex w-full items-center gap-2 rounded-xl px-4 py-3 text-left text-sm text-zinc-300 hover:bg-zinc-900">
-                        <LogOut className="h-4 w-4 text-emerald-400" /> Sign out {user.name}
-                      </button>
-                    ) : (
-                      <Link href="/auth" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm text-emerald-400 hover:bg-zinc-900">
-                        <LogIn className="h-4 w-4" /> Sign in to comment
-                      </Link>
-                    )}
-                  </div>
                   <ChevronRight className="w-4 h-4 text-slate-400 dark:text-zinc-500" />
                 </Link>
               );
             })}
+          </div>
+
+          {/* Mobile Auth Button */}
+          <div className="pt-3 border-t border-slate-200 dark:border-zinc-800">
+            {authMounted && user ? (
+              <button
+                onClick={() => {
+                  logout();
+                  setMobileMenuOpen(false);
+                }}
+                className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-900 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <LogOut className="h-4 w-4 text-emerald-500" />
+                  <span>Sign out ({user.name})</span>
+                </span>
+              </button>
+            ) : (
+              <Link
+                href="/auth"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100/80 dark:text-emerald-400 dark:bg-emerald-500/10 dark:hover:bg-emerald-500/20 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <LogIn className="h-4 w-4" />
+                  <span>Sign in to Account</span>
+                </span>
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            )}
           </div>
 
           <div className="pt-4 mt-3 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-zinc-400 px-2">

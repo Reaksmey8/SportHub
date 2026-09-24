@@ -7,6 +7,7 @@ import { Event } from "@/types/event";
 import { SportCard } from "@/components/cards/SportCard";
 import { EventCard } from "@/components/cards/EventCard";
 import { useFavorites } from "@/context/FavoritesContext";
+import { useAuth } from "@/context/AuthContext";
 import {
   Heart,
   Trophy,
@@ -16,6 +17,7 @@ import {
   AlertTriangle,
   X,
   CheckCircle2,
+  UserCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +32,7 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
   initialSports,
   initialEvents,
 }) => {
+  const { user, mounted: authMounted } = useAuth();
   const [activeTab, setActiveTab] = useState<TabType>("all");
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -78,35 +81,80 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
     showToast("Cleared all items from your favorites.");
   };
 
-  if (totalCount === 0) {
+  // If user is not logged in, prompt them to sign in
+  if (authMounted && !user) {
     return (
-      <div className="text-center py-16 px-4 max-w-md mx-auto">
-        <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center border border-rose-500/20 shadow-inner">
-          <Heart className="w-8 h-8" />
+      <div className="text-center py-16 px-4 max-w-md mx-auto space-y-6">
+        <div className="w-16 h-16 mx-auto rounded-3xl bg-rose-500/10 text-rose-500 flex items-center justify-center border border-rose-500/20 shadow-inner">
+          <Heart className="w-8 h-8 fill-rose-500/20" />
         </div>
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-          No Favorites Yet
-        </h3>
-        <p className="mt-2 text-sm text-slate-600 dark:text-zinc-400 leading-relaxed">
-          You haven&apos;t saved any sports or events yet. Tap the{" "}
-          <span className="inline-flex items-center text-rose-500 font-semibold mx-1">
-            <Heart className="w-3.5 h-3.5 fill-rose-500 mr-0.5 inline" /> heart
-          </span>{" "}
-          button on any card while browsing to save it here!
-        </p>
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <div className="space-y-2">
+          <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+            Account Required for Favorites
+          </h3>
+          <p className="text-sm text-slate-600 dark:text-zinc-400 leading-relaxed">
+            Your saved items are linked directly to your personal account so they stay safe across all sessions. Please sign in or register to view and manage your favorites.
+          </p>
+        </div>
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Link
+            href="/auth"
+            className="w-full sm:w-auto px-6 py-3 rounded-2xl text-sm font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/20"
+          >
+            Sign In / Register
+          </Link>
           <Link
             href="/sports"
-            className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-slate-950 transition-colors shadow-md shadow-emerald-500/10"
+            className="w-full sm:w-auto px-6 py-3 rounded-2xl text-sm font-semibold bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-800 dark:text-zinc-200 transition-colors border border-slate-200 dark:border-zinc-700"
           >
-            Explore Sports
+            Browse Sports
           </Link>
-          <Link
-            href="/events"
-            className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-800 dark:text-zinc-200 transition-colors border border-slate-200 dark:border-zinc-700"
-          >
-            Browse Events
-          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (totalCount === 0) {
+    return (
+      <div className="space-y-8 max-w-xl mx-auto">
+        {user && (
+          <div className="flex items-center justify-between gap-3 p-3.5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-sm text-xs">
+            <span className="text-slate-600 dark:text-zinc-400">
+              Account: <strong className="text-slate-900 dark:text-white">{user.name}</strong> ({user.email})
+            </span>
+            <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono font-semibold">
+              0 Saved Items
+            </span>
+          </div>
+        )}
+        <div className="text-center py-12 px-4 max-w-md mx-auto">
+          <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center border border-rose-500/20 shadow-inner">
+            <Heart className="w-8 h-8" />
+          </div>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+            No Favorites Saved Yet
+          </h3>
+          <p className="mt-2 text-sm text-slate-600 dark:text-zinc-400 leading-relaxed">
+            Your account hasn&apos;t saved any sports or events yet. Tap the{" "}
+            <span className="inline-flex items-center text-rose-500 font-semibold mx-1">
+              <Heart className="w-3.5 h-3.5 fill-rose-500 mr-0.5 inline" /> heart
+            </span>{" "}
+            button on any card while browsing to save it to your account!
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/sports"
+              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-slate-950 transition-colors shadow-md shadow-emerald-500/10"
+            >
+              Explore Sports
+            </Link>
+            <Link
+              href="/events"
+              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-800 dark:text-zinc-200 transition-colors border border-slate-200 dark:border-zinc-700"
+            >
+              Browse Events
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -114,6 +162,25 @@ export const FavoritesView: React.FC<FavoritesViewProps> = ({
 
   return (
     <div className="space-y-8 relative">
+      {/* Account Info Banner */}
+      {user && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center border border-emerald-500/20">
+              <UserCheck className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-slate-900 dark:text-white">
+                Saved to Account: <span className="text-emerald-600 dark:text-emerald-400 font-bold">{user.name}</span>
+              </p>
+              <p className="text-[11px] text-slate-500 dark:text-zinc-400">{user.email}</p>
+            </div>
+          </div>
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 self-start sm:self-auto">
+            {totalCount} item{totalCount === 1 ? "" : "s"} saved
+          </span>
+        </div>
+      )}
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-slate-900/95 dark:bg-zinc-900/95 text-white border border-slate-700/60 shadow-2xl backdrop-blur-xl animate-in slide-in-from-bottom-5 duration-300">

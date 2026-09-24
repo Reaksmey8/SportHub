@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import { Heart } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useFavorites } from "@/context/FavoritesContext";
+import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 
 interface FavoriteButtonProps {
@@ -20,6 +22,8 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   className,
   showLabel = false,
 }) => {
+  const router = useRouter();
+  const { user } = useAuth();
   const {
     isSportFavorited,
     isEventFavorited,
@@ -35,6 +39,12 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   const handleClick = async (e: React.MouseEvent | React.KeyboardEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // If no user account is logged in, redirect to login
+    if (!user) {
+      router.push("/auth");
+      return;
+    }
 
     setIsAnimating(true);
     setTimeout(() => setIsAnimating(false), 300);
@@ -62,6 +72,13 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     <div
       role="button"
       tabIndex={0}
+      title={
+        user
+          ? isFavorited
+            ? `Remove ${type} from favorites`
+            : `Add ${type} to favorites`
+          : "Sign in to save to your account favorites"
+      }
       aria-label={
         isFavorited
           ? `Remove ${type} from favorites`
