@@ -4,6 +4,8 @@ import { DetailPage } from "@/components/ui/DetailPage";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { ApiError } from "@/services/api/client";
 import { categoriesApi } from "@/services/api/categories";
+import { EventCard } from "@/components/cards/EventCard";
+import { Event } from "@/types/event";
 import {
   getCategoryCoverImage,
   getCategoryCleanDescription,
@@ -40,9 +42,12 @@ export default async function CategoryDetailsPage({ params }: CategoryDetailsPag
     );
   }
 
-  const sportsCount = Array.isArray(category.sports)
-    ? category.sports.length
-    : category.sports ?? 0;
+  const categoryEvents: Event[] = Array.isArray((category as { events?: Event[] }).events)
+    ? (category as { events?: Event[] }).events!
+    : [];
+
+  const sportsList = Array.isArray(category.sports) ? category.sports : [];
+  const sportsCount = sportsList.length > 0 ? sportsList.length : categoryEvents.length;
 
   const coverImage = getCategoryCoverImage(category);
   const cleanDescription = getCategoryCleanDescription(category);
@@ -57,7 +62,28 @@ export default async function CategoryDetailsPage({ params }: CategoryDetailsPag
       backLabel="Back to categories"
       commentEntityType="category"
       commentEntityUuid={category.uuid}
-      metadata={[{ label: "Sports", value: `${sportsCount} ${sportsCount === 1 ? "sport" : "sports"}` }]}
-    />
+      metadata={[
+        {
+          label: "Events & Disciplines",
+          value: `${sportsCount} ${sportsCount === 1 ? "item" : "items"}`,
+        },
+      ]}
+    >
+      {categoryEvents.length > 0 && (
+        <section className="mt-10 border-t border-slate-200 pt-8 dark:border-zinc-800">
+          <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-2xl">
+            Events in this Category ({categoryEvents.length})
+          </h2>
+          <p className="mt-1 text-sm text-slate-500 dark:text-zinc-400">
+            Tournaments, matches, and venues categorized under {category.name}.
+          </p>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {categoryEvents.map((evt) => (
+              <EventCard key={evt.uuid || evt.id} event={evt} />
+            ))}
+          </div>
+        </section>
+      )}
+    </DetailPage>
   );
 }

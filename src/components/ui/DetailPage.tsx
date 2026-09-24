@@ -17,6 +17,7 @@ interface DetailPageProps {
   favoriteUuid?: string;
   commentEntityType?: CommentEntityType;
   commentEntityUuid?: string;
+  children?: React.ReactNode;
 }
 
 export function DetailPage({
@@ -31,6 +32,7 @@ export function DetailPage({
   favoriteUuid,
   commentEntityType,
   commentEntityUuid,
+  children,
 }: DetailPageProps) {
   return (
     <div className="min-h-screen bg-slate-50 py-12 dark:bg-[#090d16] sm:py-20">
@@ -104,6 +106,7 @@ export function DetailPage({
                 ))}
               </dl>
             )}
+            {children}
             {commentEntityType && commentEntityUuid && (
               <CommentsSection entityType={commentEntityType} entityUuid={commentEntityUuid} />
             )}
