@@ -4,7 +4,6 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,9 +55,13 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-zinc-100 selection:bg-emerald-500 selection:text-black transition-colors duration-300">
         <ThemeProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <AuthProvider>
+            <FavoritesProvider>
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </FavoritesProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

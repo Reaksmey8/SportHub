@@ -1,31 +1,53 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { DetailPage } from "@/components/ui/DetailPage";
+import { ErrorState } from "@/components/ui/ErrorState";
+import { ApiError } from "@/services/api/client";
 import { sportsApi } from "@/services/api/sports";
-import Image from "next/image";
 
-interface SportDetailPageProps{
-   params: Promise<{
-    uuid: string
-   }>;
+interface SportDetailsPageProps {
+  params: Promise<{ uuid: string }>;
 }
 
-export default async function SportDetailPage({
-    params,
-}:SportDetailPageProps ){
-    const {uuid} = await params;
+export async function generateMetadata({ params }: SportDetailsPageProps): Promise<Metadata> {
+  const { uuid } = await params;
+  try {
     const sport = await sportsApi.getSportByUuid(uuid);
+    return { title: `${sport.name} — SportsHub`, description: sport.description };
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) notFound();
+    return { title: "Sport Details — SportsHub" };
+  }
+}
 
-    return(
-        <div  className="grid md:grid-cols-2 gap-8 items-center py-8 px-6">
-            <div>
-                <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{sport.name}</h1>
-                <p className="text-slate-700 dark:text-zinc-300">{sport.description}</p>
-                <p className="text-sm font-semibold text-emerald-600 dark:text-zinc-300 leading-relaxed">{sport.category?.name || "General"}</p>
-            </div>
+export default async function SportDetailsPage({ params }: SportDetailsPageProps) {
+  const { uuid } = await params;
+  let sport;
 
+  try {
+    sport = await sportsApi.getSportByUuid(uuid);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) notFound();
+    return (
+      <div className="min-h-screen bg-slate-50 px-4 py-20 dark:bg-[#090d16]">
+        <ErrorState title="Failed to load sport" message="We could not load this sport. Please try again later." />
+      </div>
+    );
+  }
 
-            {sport.imageUrls?.[0] && (
-                <Image src={sport.imageUrls[0]} alt={sport.name} width={600} height={400} className="rounded-2xl shadow-xl
-                "/>
-            )}
-        </div>
-    )
+  return (
+    <DetailPage
+      title={sport.name}
+      description={sport.description}
+      imageUrl={sport.imageUrls?.[0]}
+      badge={sport.category?.name || "Sport"}
+      backHref="/sports"
+      backLabel="Back to sports"
+      favoriteType="sport"
+      favoriteUuid={sport.uuid}
+      commentEntityType="sport"
+      commentEntityUuid={sport.uuid}
+      metadata={[{ label: "Category", value: sport.category?.name || "General" }]}
+    />
+  );
 }
