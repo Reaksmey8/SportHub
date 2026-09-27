@@ -14,7 +14,7 @@ export interface Event {
   locationName: string;
   latitude: number;
   longitude: number;
-  createAt: string;
+  createdAt: string;
   updateAt: string;
 }
 
