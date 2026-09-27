@@ -21,6 +21,39 @@ export const metadata: Metadata = {
   title: "SportsHub — Your World of Sports, All in One Place",
   description:
     "Discover live sports, events, and categories from leagues across the country and beyond.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000")
+  ),
+  openGraph: {
+    title: "SportsHub — Your World of Sports, All in One Place",
+    description:
+      "Discover live sports, events, and categories from leagues across the country and beyond.",
+    type: "website",
+    images: [
+      {
+        url: "/thumbnail.png",
+        alt: "SportsHub — Your World of Sports, All in One Place",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SportsHub — Your World of Sports, All in One Place",
+    description:
+      "Discover live sports, events, and categories from leagues across the country and beyond.",
+    images: ["/thumbnail.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/favicon/favicon.ico",
+    apple: "/favicon/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

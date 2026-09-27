@@ -22,7 +22,14 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
     : "Upcoming";
 
   return (
-    <article className="group flex flex-col justify-between rounded-2xl overflow-hidden bg-white dark:bg-zinc-900/60 hover:bg-slate-50/80 dark:hover:bg-zinc-900/90 border border-slate-200/90 dark:border-zinc-800 hover:border-slate-300 dark:hover:border-zinc-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl shadow-sm dark:shadow-none">
+    <article className="group relative isolate flex cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl hover:ring-2 hover:ring-emerald-400/60 dark:border-zinc-800 dark:bg-zinc-900/60 dark:shadow-none dark:hover:border-zinc-700 dark:hover:bg-zinc-900/90 dark:hover:ring-emerald-400/50">
+      <Link
+        href={`/events/${event.uuid}`}
+        aria-label={`View ${event.name}`}
+        className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-500"
+      >
+        <span className="sr-only">View {event.name}</span>
+      </Link>
       <div>
         {/* Event Banner */}
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
@@ -49,7 +56,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
             type="event"
             uuid={event.uuid}
             size="sm"
-            className="absolute top-3 right-3 z-10"
+            className="absolute top-3 right-3 z-20"
           />
         </div>
 
@@ -86,13 +93,10 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         <span className="text-slate-500 dark:text-zinc-400 font-medium truncate max-w-[160px]">
           {event.locationName || "Sports Venue"}
         </span>
-        <Link
-          href={`/events/${event.uuid}`}
-          className="inline-flex items-center gap-1.5 font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors shrink-0"
-        >
+        <span className="inline-flex shrink-0 items-center gap-1.5 font-semibold text-emerald-600 transition-colors dark:text-emerald-400">
           <span>View Event</span>
           <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-        </Link>
+        </span>
       </div>
     </article>
   );
