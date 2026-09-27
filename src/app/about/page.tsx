@@ -115,7 +115,7 @@ const TEAM_MEMBERS_DATA: ProfileMember[] = [
   {
     name: "Chay Kimleang",
     role: "Frontend",
-    avatarUrl: "/images/mary.jpg",
+    avatarUrl: "/images/kimleang.jpg",
     telegramUrl: "https://t.me",
     githubUrl: "https://github.com",
     emailUrl: "mailto:silkhema@example.com",
