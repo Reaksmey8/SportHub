@@ -1,5 +1,8 @@
+import { StringValidation } from "zod/v3";
+
+
 export interface SportCategoryRef {
-  name: string;
+  name : string;
 }
 
 export interface Sport {
@@ -10,8 +13,8 @@ export interface Sport {
   description: string;
   imageUrls: string[];
   createdAt: string;
-  updatedAt: string;
-  disabled?: boolean;
+  updateAt: string;
+  disabled: boolean;
 }
 
 export interface CreateSportPayload {
