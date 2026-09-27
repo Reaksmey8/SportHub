@@ -1,3 +1,5 @@
+
+
 export interface EventCategoryRef {
   name: string;
 }
@@ -12,8 +14,8 @@ export interface Event {
   locationName: string;
   latitude: number;
   longitude: number;
-  createdAt: string;
-  updatedAt: string;
+  createAt: string;
+  updateAt: string;
 }
 
 export interface CreateEventPayload {
@@ -25,4 +27,3 @@ export interface CreateEventPayload {
   latitude?: number;
   longitude?: number;
 }
-

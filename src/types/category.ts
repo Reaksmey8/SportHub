@@ -1,5 +1,6 @@
 import { Sport } from "./sport";
 
+
 export interface SportCategory {
   id: number;
   uuid: string;
@@ -14,4 +15,3 @@ export interface CreateCategoryPayload {
   name: string;
   description: string;
 }
-

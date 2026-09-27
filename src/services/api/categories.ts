@@ -4,28 +4,28 @@ import { SportCategory, CreateCategoryPayload } from "@/types/category";
 export const categoriesApi = {
   /**
    * Fetch all sport categories
-   * GET /sport_categories
+   * GET /categories
    */
   getCategories: async (): Promise<SportCategory[]> => {
-    return apiClient<SportCategory[]>("/sport_categories");
+    return apiClient<SportCategory[]>("/categories");
   },
 
   /**
    * Fetch a single sport category by UUID
-   * GET /sport_categories/{uuid}
+   * GET /categories/{uuid}
    */
   getCategoryByUuid: async (uuid: string): Promise<SportCategory> => {
-    return apiClient<SportCategory>(`/sport_categories/${uuid}`);
+    return apiClient<SportCategory>(`/categories/${uuid}`);
   },
 
   /**
    * Create a new sport category
-   * POST /sport_categories
+   * POST /categories
    */
   createCategory: async (
     payload: CreateCategoryPayload
   ): Promise<SportCategory> => {
-    return apiClient<SportCategory>("/sport_categories", {
+    return apiClient<SportCategory>("/categories", {
       method: "POST",
       body: JSON.stringify(payload),
     });
@@ -33,13 +33,13 @@ export const categoriesApi = {
 
   /**
    * Update an existing sport category
-   * PATCH /sport_categories/{uuid}
+   * PATCH /categories/{uuid}
    */
   updateCategory: async (
     uuid: string,
     payload: Partial<CreateCategoryPayload>
   ): Promise<SportCategory> => {
-    return apiClient<SportCategory>(`/sport_categories/${uuid}`, {
+    return apiClient<SportCategory>(`/categories/${uuid}`, {
       method: "PATCH",
       body: JSON.stringify(payload),
     });
@@ -47,12 +47,11 @@ export const categoriesApi = {
 
   /**
    * Delete a sport category
-   * DELETE /sport_categories/{uuid}
+   * DELETE /categories/{uuid}
    */
   deleteCategory: async (uuid: string): Promise<void> => {
-    return apiClient<void>(`/sport_categories/${uuid}`, {
+    return apiClient<void>(`/categories/${uuid}`, {
       method: "DELETE",
     });
   },
 };
-

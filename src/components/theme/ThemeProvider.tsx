@@ -34,7 +34,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       localStorage.setItem("sportshub-theme", newTheme);
     } catch {
-      // ignore
     }
 
     if (newTheme === "dark") {

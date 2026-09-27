@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Calendar, ArrowRight } from "lucide-react";
 import { Event } from "@/types/event";
+import { FavoriteButton } from "@/components/ui/FavoriteButton";
 
 interface EventCardProps {
   event: Event;
@@ -44,6 +45,12 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
               {categoryName}
             </span>
           </div>
+          <FavoriteButton
+            type="event"
+            uuid={event.uuid}
+            size="sm"
+            className="absolute top-3 right-3 z-10"
+          />
         </div>
 
         {/* Event Content */}

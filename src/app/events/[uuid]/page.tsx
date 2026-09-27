@@ -52,8 +52,12 @@ export default async function EventDetailsPage({ params }: EventDetailsPageProps
       description={event.description}
       imageUrl={event.imageUrls?.[0]}
       badge={event.category?.name || "Event"}
-      backHref="/#events"
+      backHref="/events"
       backLabel="Back to events"
+      favoriteType="event"
+      favoriteUuid={event.uuid}
+      commentEntityType="event"
+      commentEntityUuid={event.uuid}
       metadata={[
         { label: "Date", value: createdAt },
         { label: "Location", value: event.locationName || "Location to be announced" },
