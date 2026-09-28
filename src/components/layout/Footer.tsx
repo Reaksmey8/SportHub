@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Send, CheckCircle2 } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 
 export const Footer: React.FC = () => {
   const [subscribed, setSubscribed] = useState(false);
@@ -155,7 +155,7 @@ export const Footer: React.FC = () => {
             <div className="mt-5 space-y-3 text-sm text-slate-600 dark:text-slate-300">
               {/* Email */}
               <div className="flex items-center gap-3">
-                <span className="text-emerald-500">✉</span>
+                <Mail className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />
                 <a
                   href="mailto:your-email@example.com"
                   className="transition-colors hover:text-emerald-500"
@@ -166,7 +166,7 @@ export const Footer: React.FC = () => {
 
               {/* Phone */}
               <div className="flex items-center gap-3">
-                <span className="text-emerald-500">☎</span>
+                <Phone className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />
                 <a
                   href="tel:+85512345678"
                   className="transition-colors hover:text-emerald-500"

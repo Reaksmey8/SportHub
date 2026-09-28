@@ -20,6 +20,11 @@ import {
   MapPin,
   CheckCircle2,
   Globe,
+  Bike,
+  ChessKnight,
+  Goal,
+  Swords,
+  Waves,
 } from "lucide-react";
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -386,19 +391,23 @@ export default function AboutPage() {
               </div>
               <div className="mt-8 pt-6 border-t border-slate-200/80 dark:border-zinc-800/80 flex flex-wrap items-center gap-3">
                 {[
-                  "Kun Khmer 🥊",
-                  "CPL Football ⚽",
-                  "National Cycling 🚴",
-                  "Aquatics 🏊",
-                  "Cambodian Chess ♟️",
-                ].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 border border-slate-200/60 dark:border-zinc-700/60"
-                  >
-                    {tag}
-                  </span>
-                ))}
+                  { label: "Kun Khmer", icon: Swords },
+                  { label: "CPL Football", icon: Goal },
+                  { label: "National Cycling", icon: Bike },
+                  { label: "Aquatics", icon: Waves },
+                  { label: "Cambodian Chess", icon: ChessKnight },
+                ].map((tag) => {
+                  const Icon = tag.icon;
+                  return (
+                    <span
+                      key={tag.label}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 border border-slate-200/60 dark:border-zinc-700/60"
+                    >
+                      <Icon className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                      {tag.label}
+                    </span>
+                  );
+                })}
               </div>
             </div>
 

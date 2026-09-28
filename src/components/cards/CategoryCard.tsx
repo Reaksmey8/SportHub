@@ -22,6 +22,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
     : 0;
 
   const meta = getCategoryMeta(category.name);
+  const CategoryIcon = meta.icon;
   const coverImage = getCategoryCoverImage(category);
   const cleanDesc = getCategoryCleanDescription(category);
 
@@ -44,9 +45,9 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
 
           {/* Badges on Banner */}
           <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-            {/* Emoji and category tag pill */}
+            {/* Icon and category tag pill */}
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/95 dark:bg-zinc-900/90 text-slate-900 dark:text-zinc-100 shadow-md backdrop-blur-md border border-white/20">
-              <span className="text-sm">{meta.emoji}</span>
+              <CategoryIcon className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
               <span>{meta.tag}</span>
             </span>
 
