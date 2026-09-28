@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -14,6 +14,7 @@ import {
   Moon,
   LogIn,
   LogOut,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/theme/ThemeProvider";
@@ -32,6 +33,9 @@ export const Navbar: React.FC = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [signOutOpen, setSignOutOpen] = useState(false);
+  const cancelSignOutRef = useRef<HTMLButtonElement>(null);
+  const confirmSignOutRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
@@ -52,6 +56,39 @@ export const Navbar: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!signOutOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement;
+    document.body.style.overflow = "hidden";
+    cancelSignOutRef.current?.focus();
+
+    const handleDialogKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSignOutOpen(false);
+      } else if (event.key === "Tab") {
+        const focusIsOnCancel = document.activeElement === cancelSignOutRef.current;
+        const focusIsOnConfirm = document.activeElement === confirmSignOutRef.current;
+
+        if (event.shiftKey && focusIsOnCancel) {
+          event.preventDefault();
+          confirmSignOutRef.current?.focus();
+        } else if (!event.shiftKey && focusIsOnConfirm) {
+          event.preventDefault();
+          cancelSignOutRef.current?.focus();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleDialogKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleDialogKeyDown);
+      document.body.style.overflow = previousOverflow;
+      if (previouslyFocused instanceof HTMLElement) previouslyFocused.focus();
+    };
+  }, [signOutOpen]);
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -62,10 +99,13 @@ export const Navbar: React.FC = () => {
   };
 
   const handleLogout = () => {
-    if (window.confirm("Are you sure you want to sign out?")) {
-      logout();
-      setMobileMenuOpen(false);
-    }
+    setSignOutOpen(true);
+  };
+
+  const confirmLogout = () => {
+    logout();
+    setSignOutOpen(false);
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -291,6 +331,64 @@ export const Navbar: React.FC = () => {
             </span>
             <span className="font-mono text-slate-400 dark:text-zinc-500">v2.0.0</span>
           </div>
+        </div>
+      )}
+
+      {signOutOpen && user && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm animate-in fade-in duration-200"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setSignOutOpen(false);
+          }}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="sign-out-title"
+            aria-describedby="sign-out-description"
+            className="w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/20 dark:border-zinc-800 dark:bg-zinc-900"
+          >
+            <div className="p-6 sm:p-7">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                <ShieldCheck className="h-6 w-6" aria-hidden="true" />
+              </div>
+              <h2
+                id="sign-out-title"
+                className="text-xl font-bold tracking-tight text-slate-900 dark:text-white"
+              >
+                Sign out of SportsHub?
+              </h2>
+              <p
+                id="sign-out-description"
+                className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-zinc-400"
+              >
+                You&apos;re signed in as{" "}
+                <span className="font-semibold text-slate-800 dark:text-zinc-200">
+                  {user.name}
+                </span>
+                . You can sign back in anytime.
+              </p>
+            </div>
+            <div className="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50/80 p-5 dark:border-zinc-800 dark:bg-zinc-950/50 sm:flex-row sm:justify-end">
+              <button
+                ref={cancelSignOutRef}
+                type="button"
+                onClick={() => setSignOutOpen(false)}
+                className="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
+              >
+                Stay signed in
+              </button>
+              <button
+                ref={confirmSignOutRef}
+                type="button"
+                onClick={confirmLogout}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-bold text-slate-950 transition-colors hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-950"
+              >
+                <LogOut className="h-4 w-4" aria-hidden="true" />
+                Sign out
+              </button>
+            </div>
+          </section>
         </div>
       )}
     </header>
