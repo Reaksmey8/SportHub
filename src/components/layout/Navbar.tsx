@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -334,7 +335,7 @@ export const Navbar: React.FC = () => {
         </div>
       )}
 
-      {signOutOpen && user && (
+      {signOutOpen && user && createPortal(
         <div
           className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm animate-in fade-in duration-200"
           onMouseDown={(event) => {
@@ -389,7 +390,8 @@ export const Navbar: React.FC = () => {
               </button>
             </div>
           </section>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );
