@@ -10,6 +10,7 @@ import {
   getCategoryCoverImage,
   getCategoryCleanDescription,
 } from "@/lib/categoryMeta";
+import { createPageMetadata } from "@/lib/seo";
 
 interface CategoryDetailsPageProps {
   params: Promise<{ uuid: string }>;
@@ -20,10 +21,19 @@ export async function generateMetadata({ params }: CategoryDetailsPageProps): Pr
   try {
     const category = await categoriesApi.getCategoryByUuid(uuid);
     const description = getCategoryCleanDescription(category);
-    return { title: `${category.name} — SportsHub`, description };
+    return createPageMetadata({
+      title: category.name,
+      description,
+      path: `/categories/${encodeURIComponent(category.uuid)}`,
+      image: getCategoryCoverImage(category),
+    });
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) notFound();
-    return { title: "Category Details — SportsHub" };
+    return createPageMetadata({
+      title: "Category Details",
+      description: "Browse sports organized by discipline on SportsHub.",
+      path: `/categories/${encodeURIComponent(uuid)}`,
+    });
   }
 }
 

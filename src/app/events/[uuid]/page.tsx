@@ -4,6 +4,7 @@ import { DetailPage } from "@/components/ui/DetailPage";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { ApiError } from "@/services/api/client";
 import { eventsApi } from "@/services/api/events";
+import { createPageMetadata } from "@/lib/seo";
 
 interface EventDetailsPageProps {
   params: Promise<{ uuid: string }>;
@@ -16,10 +17,19 @@ export async function generateMetadata({
 
   try {
     const event = await eventsApi.getEventByUuid(uuid);
-    return { title: `${event.name} — SportsHub`, description: event.description };
+    return createPageMetadata({
+      title: event.name,
+      description: event.description || `Explore ${event.name} on SportsHub.`,
+      path: `/events/${encodeURIComponent(event.uuid)}`,
+      image: event.imageUrls?.[0],
+    });
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) notFound();
-    return { title: "Event Details — SportsHub" };
+    return createPageMetadata({
+      title: "Event Details",
+      description: "Explore sports events and competitions on SportsHub.",
+      path: `/events/${encodeURIComponent(uuid)}`,
+    });
   }
 }
 

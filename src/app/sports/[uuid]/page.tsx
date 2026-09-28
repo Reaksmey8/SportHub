@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { DetailPage } from "@/components/ui/DetailPage";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { getSportByUuid } from "@/server/sports";
+import { createPageMetadata } from "@/lib/seo";
 
 interface SportDetailsPageProps {
   params: Promise<{ uuid: string }>;
@@ -12,10 +13,19 @@ export async function generateMetadata({ params }: SportDetailsPageProps): Promi
   const { uuid } = await params;
   try {
     const sport = await getSportByUuid(uuid);
-    return { title: `${sport.name} — SportsHub`, description: sport.description };
+    return createPageMetadata({
+      title: sport.name,
+      description: sport.description || `Discover ${sport.name} on SportsHub.`,
+      path: `/sports/${encodeURIComponent(sport.uuid)}`,
+      image: sport.imageUrls?.[0],
+    });
   } catch (error) {
     if (error instanceof Error && error.message.includes("404")) notFound();
-    return { title: "Sport Details — SportsHub" };
+    return createPageMetadata({
+      title: "Sport Details",
+      description: "Discover sports and disciplines on SportsHub.",
+      path: `/sports/${encodeURIComponent(uuid)}`,
+    });
   }
 }
 

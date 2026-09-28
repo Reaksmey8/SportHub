@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -63,11 +64,12 @@ const MailIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-export const metadata: Metadata = {
-  title: "About Us — SportsHub",
+export const metadata: Metadata = createPageMetadata({
+  title: "About Us",
   description:
     "Discover the story, engineering philosophy, and the student team behind SportsHub — Cambodia's premier live athletic platform.",
-};
+  path: "/about",
+});
 
 export interface ProfileMember {
   name: string;

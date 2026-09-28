@@ -22,8 +22,9 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 export const metadata: Metadata = {
-  title: "Search Results — SportsHub",
+  title: "Search Results",
   description: "Search across all sports, events, categories, and information on SportsHub.",
+  robots: { index: false, follow: true },
 };
 
 interface SearchPageProps {

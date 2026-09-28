@@ -5,6 +5,14 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Sport } from "@/types/sport";
+import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Sports",
+  description: "Browse sports disciplines and discover athletes, competitions, and sports information on SportsHub.",
+  path: "/sports",
+});
 
 interface SportsPageProps {
   searchParams?: Promise<{ search?: string; q?: string }>;

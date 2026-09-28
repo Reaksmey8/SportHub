@@ -6,11 +6,13 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SportCategory } from "@/types/category";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Categories — SportsHub",
+export const metadata: Metadata = createPageMetadata({
+  title: "Categories",
   description: "Browse sports organized by disciplines, from ball sports and water activities to combat arts and motorsports.",
-};
+  path: "/categories",
+});
 
 interface CategoriesPageProps {
   searchParams?: Promise<{ search?: string; q?: string }>;

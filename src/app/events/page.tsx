@@ -6,11 +6,13 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Event } from "@/types/event";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Events — SportsHub",
+export const metadata: Metadata = createPageMetadata({
+  title: "Events",
   description: "Explore live matches, competitive tournaments, and athletic events across all sports disciplines.",
-};
+  path: "/events",
+});
 
 interface EventsPageProps {
   searchParams?: Promise<{ search?: string; q?: string }>;

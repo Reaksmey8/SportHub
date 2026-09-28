@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { FavoritesProvider } from "@/context/FavoritesContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { getSiteUrl } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,15 +19,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SportsHub — Your World of Sports, All in One Place",
+  title: {
+    default: "SportsHub — Your World of Sports, All in One Place",
+    template: "%s | SportsHub",
+  },
   description:
     "Discover live sports, events, and categories from leagues across the country and beyond.",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ??
-      (process.env.VERCEL_PROJECT_PRODUCTION_URL
-        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-        : "https://sport-hub-teal.vercel.app")
-  ),
+  metadataBase: getSiteUrl(),
+  alternates: { canonical: "/" },
   openGraph: {
     title: "SportsHub — Your World of Sports, All in One Place",
     description:
