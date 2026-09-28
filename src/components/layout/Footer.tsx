@@ -177,7 +177,7 @@ export const Footer: React.FC = () => {
 
               {/* Location */}
               <div className="flex items-center gap-3">
-                <span className="text-emerald-500">📍</span>
+                <span className="text-emerald-500"></span>
                 <span>Toul Kork, Phnom Penh</span>
               </div>
             </div>
