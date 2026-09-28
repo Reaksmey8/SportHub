@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronRight, Trophy, Flame } from "lucide-react";
 import { Sport } from "@/types/sport";
 import { FavoriteButton } from "@/components/ui/FavoriteButton";
+import { CardThumbnail } from "@/components/ui/CardThumbnail";
 
 interface SportCardProps {
   sport: Sport;
@@ -22,10 +22,9 @@ export const SportCard: React.FC<SportCardProps> = ({ sport }) => {
         {/* Optional Image Banner if present */}
         {imageUrl ? (
           <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-            <Image
+            <CardThumbnail
               src={imageUrl}
               alt={sport.name}
-              fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />

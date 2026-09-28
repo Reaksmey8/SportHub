@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { MapPin, Calendar, ArrowRight } from "lucide-react";
 import { Event } from "@/types/event";
 import { FavoriteButton } from "@/components/ui/FavoriteButton";
+import { CardThumbnail } from "@/components/ui/CardThumbnail";
 
 interface EventCardProps {
   event: Event;
@@ -34,10 +34,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         {/* Event Banner */}
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
           {imageUrl ? (
-            <Image
+            <CardThumbnail
               src={imageUrl}
               alt={event.name}
-              fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />

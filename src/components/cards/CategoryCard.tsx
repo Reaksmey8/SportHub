@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronRight, Layers } from "lucide-react";
 import { SportCategory } from "@/types/category";
+import { CardThumbnail } from "@/components/ui/CardThumbnail";
 import {
   getCategoryMeta,
   getCategoryCoverImage,
@@ -33,10 +33,9 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
       <div>
         {/* Cover Image Banner */}
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-          <Image
+          <CardThumbnail
             src={coverImage}
             alt={category.name}
-            fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
