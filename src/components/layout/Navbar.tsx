@@ -61,6 +61,13 @@ export const Navbar: React.FC = () => {
     }
   };
 
+  const handleLogout = () => {
+    if (window.confirm("Are you sure you want to sign out?")) {
+      logout();
+      setMobileMenuOpen(false);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -176,7 +183,7 @@ export const Navbar: React.FC = () => {
             {authMounted && (
               user ? (
                 <button
-                  onClick={logout}
+                  onClick={handleLogout}
                   title={`Sign out ${user.name}`}
                   className="hidden items-center gap-2 rounded-xl border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white sm:flex"
                 >
@@ -255,10 +262,7 @@ export const Navbar: React.FC = () => {
           <div className="pt-3 border-t border-slate-200 dark:border-zinc-800">
             {authMounted && user ? (
               <button
-                onClick={() => {
-                  logout();
-                  setMobileMenuOpen(false);
-                }}
+                onClick={handleLogout}
                 className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-900 transition-colors"
               >
                 <span className="flex items-center gap-2">
